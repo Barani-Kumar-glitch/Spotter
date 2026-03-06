@@ -1,0 +1,723 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Spotter</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href=" {% static 'site.webmanifest' %} ">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Bangers&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href=" {% static 'assets/img/favicon.png' %}?v=2">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href=" {% static 'assets/css/bootstrap.min.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/owl.carousel.min.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/slicknav.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/flaticon.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/gijgo.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/animate.min.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/animated-headline.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/magnific-popup.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/fontawesome-all.min.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/themify-icons.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/slick.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/nice-select.css' %} ">
+    <link rel="stylesheet" href=" {% static 'assets/css/style.css' %} ">
+</head>
+<style>
+    /* 1. Set the initial state */
+    .blog_item_title h5 a, 
+    .blog_item_title p {
+        color: #fff; /* Initial white color */
+        transition: color 0.3s ease; /* Smooth transition */
+        text-decoration: none; /* Removes default underline from link */
+    }
+
+    /* 2. Change to Rubbish Red when hovering over the title area */
+    .blog_item_title:hover h5 a,
+    .blog_item_title:hover p {
+        color: #ff1313; /* Rubbish Red */
+        display: inline-block; /* Required for transform to work properly */
+        transition: transform 0.3s ease-in-out; /* The animation lives here */
+        transform: scale(1);
+    }
+
+    /* 3. Optional: Specific hover for the link if mouse is directly on it */
+    .blog_item_title h5 a:hover {
+        color: #ff1313;
+        text-decoration: underline; /* Adds underline only when touching the link */
+        transform: scale(1.1); /* Slight pop effect for the icon */
+        transition: 0.3s;
+    }
+    .blog_item_img img {
+        display: inline-block; /* Required for transform to work properly */
+        transition: transform 0.3s ease-in-out; /* The animation lives here */
+        transform: scale(1);
+    }
+    .blog_item_img img:hover {
+        transform: scale(1.1); /* Slight pop effect for the icon */
+        transition: 0.3s;
+    }
+    .spotter-table {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: none !important;
+    }
+    .spotter-table th {
+        vertical-align: middle;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .spotter-table td {
+        background-color: #fff;
+    }
+    .list-group-item {
+        font-size: 14px;
+        padding: 12px 15px;
+        transition: background 0.3s;
+    }
+    .list-group-item:hover {
+        background-color: #f1f4fa;
+    }
+
+    :root {
+        --spotter-card: #262626;
+        --spotter-neon: #ccff00; /* Electric Lime */
+        --spotter-text: #ffffff;
+        --spotter-gray: #a0a0a0;
+        --spotter-dark: #1a1a1a;
+        --rubbish-red: #B22222;
+        
+    }
+    .spotter-container {
+        background-color: var(--spotter-dark);
+        color: var(--spotter-text);
+        padding: 25px;
+        border-radius: 15px;
+        font-family: 'Oswald', sans-serif; /* Bold, athletic font */
+        max-width: 900px;
+        margin: auto;
+        border: 1px solid #333;
+    }
+
+    .spotter-header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid var(--spotter-neon);
+        padding-bottom: 10px;
+    }
+
+    .spotter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .spotter-card {
+        background: var(--spotter-card);
+        padding: 20px;
+        border-radius: 12px;
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .spotter-card:hover {
+        transform: translateY(-5px);
+        border: 1px solid var(--spotter-neon);
+    }
+
+    .calorie-badge, .intensity-badge {
+        display: inline-block;
+        background: var(--spotter-neon);
+        color: black;
+        padding: 5px 12px;
+        font-weight: bold;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .plan-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .plan-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #3d3d3d;
+        font-size: 0.95rem;
+    }
+
+    .plan-list li strong {
+        color: var(--spotter-neon);
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+
+    .btn-action {
+        background: transparent;
+        border: 2px solid var(--spotter-neon);
+        color: var(--spotter-neon);
+        padding: 10px 30px;
+        margin-top: 20px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    .btn-action:hover {
+        background: var(--spotter-neon);
+        color: black;
+    }
+    .black-bg { background: #111; color: #fff; }
+    .result-card {
+        background: #1a1a1a;
+        padding: 50px 30px;
+        border-radius: 15px;
+        border: 1px solid #333;
+        text-align: center;
+    }
+    .highlight-val {
+        font-size: 60px;
+        font-weight: 900;
+        color: #f50000;
+        margin: 10px 0;
+        display: block;
+    }
+    /* Goal Selection Grid */
+    .goal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+    }
+    /* Hidden Radio Input */
+    .goal-option input[type="radio"] {
+        display: none;
+    }
+    /* Stylized Card Acting as Button */
+    .goal-label {
+        display: block;
+        background: #222;
+        padding: 30px;
+        border-radius: 10px;
+        border: 2px solid transparent;
+        border-bottom: 4px solid #444;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    .goal-label:hover {
+        transform: translateY(-5px);
+        background: #2a2a2a;
+        border-color: #c3fb12;
+    }
+    /* Color Coding */
+    .loss-title { color: #ff4d4d; }
+    .maint-title { color: #c3fb12; }
+    .gain-title { color: #4da3ff; }
+
+    .calorie-amt {
+        display: block;
+        font-size: 32px;
+        font-weight: 800;
+        margin: 10px 0;
+        color: #fff;
+    }
+    .small-desc { color: #aaa; font-size: 14px; display: block; }
+    
+    .submit-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        width: 100%;
+        text-align: inherit;
+    }
+    .makered {
+        color: white; /* Or your preferred base color */
+        transition: color 0.3s ease; /* Makes the color change smooth */
+    }
+
+    /* Hover state */
+    .makered:hover {
+        color: var(--rubbish-red);
+    }
+</style>
+<body class="black-bg">
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src=" {% static 'assets/img/logo/loder.png' %} " alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="/"><img src=" {% static 'assets/img/logo/logo.png' %} " alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="about">About</a></li>
+                                    <li><a href="courses">Courses</a></li>
+                                    <li><a href="calorie">Calorie</a></li>
+                                    <li><a href="sport">Sport</a></li>
+                                    <li><a href="blog">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="blog">Blog</a></li>
+                                            <li><a href="blog_details">Blog Details</a></li>
+                                            <!-- <li><a href="elements">Elements</a></li> -->
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>          
+                        <!-- Header-btn -->
+                        {% if user.is_authenticated %}
+                        <div class="header-btns d-none d-lg-block f-right">
+                            <a href="signout" class="btn">Log Out</a>
+                        {% else %}
+                            <a href="signup" class="btn">Log In</a>
+                        </div>
+                        {% endif %}
+                       <!-- Mobile Menu -->
+                       <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<div id="toast-container" style="position: fixed; top: 30px; right: 30px; z-index: 9999;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="spotter-toast">
+                <span class="toast-icon">⚠</span>
+                <span class="toast-text">{{ message }}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<style>
+    
+</style>
+<main>
+    <!--? Hero Start -->
+    <div class="slider-area2">
+        <div class="slider-height2 d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap hero-cap2 pt-70">
+                            <h2>Courses</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+    
+    <!-- Traning categories Start -->
+    <section class="traning-categories black-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="single-topic text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="topic-img">
+                            <img src=" {% static 'assets/img/gallery/cat1.png' %}" alt="">
+                            <div class="topic-content-box">
+                                <div class="topic-content">
+                                    <h3>Exersices</h3>
+                                    <p>A physical movement designed to improve strength, flexibility, or cardiovascular health by targeting <br> specific muscle groups through repetitive motions.</p>
+                                    <a href="exercises" class="border-btn">View Courses</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="single-topic text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="topic-img">
+                            <img src=" {% static 'assets/img/gallery/cat2.png' %}" alt="">
+                            <div class="topic-content-box">
+                                <div class="topic-content">
+                                    <h3>Diet</h3>
+                                    <p>A diet is a structured nutritional plan designed to provide the body with essential macronutrients and <br> vitamins required for optimal health and physical recovery.</p>
+                                    <a href="diets" class="btn">View Courses</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Traning categories End-->
+    <!--? Team -->
+    <section class="team-area pt-80">
+        {% if guide %}
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-xl-12">
+                    <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <h2>What I Offer</h2>
+                    </div>
+                </div>
+                {% for target in guide %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".{% widthratio forloop.counter 1 2 %}s" >
+                        <div class="cat-icon" >
+                            <div class="blog_item_img">
+                               <a href="{% url 'target' target.pk %}">
+                                   <img src="{% static 'assets/img/gallery/team' %}{{ forloop.counter }}.png" alt="{{ target.body_target }}">
+                               </a>
+                            </div>
+                        </div>
+                        <div class="cat-cap">
+                            <div class="blog_item_title">
+                               <h5><a href="{% url 'target' target.pk %}">{{ target.body_target }}</a></h5>
+                               <p>{{ target.purpose }}</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- <div class="col-lg-4 col-md-6">
+                    <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="cat-icon">
+                            <img src="{% static 'assets/img/gallery/team2.png' %}" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5><a href="services">Muscle Gain</a></h5>
+                            <p>You’ll look at graphs and charts in Task One, how to approach the task </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s">
+                        <div class="cat-icon">
+                            <img src="{% static 'assets/img/gallery/team3.png' %}" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5><a href="services">Weight Loss</a></h5>
+                            <p>You’ll look at graphs and charts in Task One, how to approach the task </p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        {% endif %}
+    </section>
+    <!-- Services End -->
+    <!-- Traning categories Start -->
+    
+    <section class="pricing-area section-padding30">
+        {% if workout_plan and diet_plan %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-11 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                    
+                    <div class="result-card">
+                        <!--<h3 class="text-uppercase" style="letter-spacing: 2px;">Your Daily Maintenance</h3>
+                        
+                        {% if user_data.user_target == 'Maintanence' %}
+                            <span class="highlight-val">{{ user_data.tdee|floatformat:2 }} <small style="font-size: 20px;">kcal</small></span>
+                        {% elif user_data.user_target == 'Weight Loss' %}
+                            <span class="highlight-val">{{ user_data.loss|floatformat:2 }} <small style="font-size: 20px;">kcal</small></span>
+                        {% else %}
+                            <span class="highlight-val">{{ user_data.gain|floatformat:2 }} <small style="font-size: 20px;">kcal</small></span>
+                        {% endif %}
+                        
+                        <p class="mb-5 text-muted">{{ user_data.user_target }}</p>
+                            <p class="mb-5 text-muted"> Gender: {{ user_data.gender }} | Age: {{ user_data.age }} | Weight: {{ user_data.weight }}kg | Height: {{ user_data.height }}cm </p>  -->
+
+                        <div class="spotter-container">
+                            <div class="spotter-header">
+                                <h2>DAILY PERFORMANCE PLAN</h2>
+                                <!-- <p>User: {{ request.user.username }} | Goal: {{ user_data.user_target }}</p> -->
+                            </div>
+
+                            <div class="table-responsive mt-4">
+                                <table class="table table-bordered spotter-table" style="background: #fff; border-radius: 8px; overflow: hidden;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="width: 50%; text-align: center; background-color: #f8f9fa;">
+                                                <div class="card-icon" style="font-size: 24px;">🥗</div>
+                                                <span style="color: #333; font-size: 20px;">WORKOUT ROUTINE</span>
+                                                <div class="calorie-badge" style="font-size: 10px; background: #e3f2fd; color: #0d47a1; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-left: 10px;">HIGH INTENSITY</div>
+                                            </th>
+                                            <th style="width: 50%; text-align: center; background-color: #f8f9fa;">
+                                                <div class="card-icon" style="font-size: 24px;">🏋️‍♂️</div>
+                                                <span style="color: #333; font-size: 20px;">DIET CHART</span>
+                                                <div class="intensity-badge" style="font-size: 10px; background: #e8f5e9; color: #1b5e20; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-left: 10px;">CALORIE MGMT</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size: 15px;">
+                                            <td class="p-0">
+                                                <ul class="plan-list list-group list-group-flush" style="list-style: none; padding: 0;">
+                                                    {% for r_plan in workout_plan %}
+                                                        {% if r_plan.strip %}
+                                                            <li class="list-group-item" style="border-left: 4px solid #007bff;">{{ r_plan }}</li>
+                                                        {% endif %}
+                                                    {% empty %}
+                                                        <li class="list-group-item text-muted">No workout data available</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                            <td class="p-0">
+                                                <ul class="plan-list list-group list-group-flush" style="list-style: none; padding: 0;">
+                                                    {% for d_plan in diet_plan %}
+                                                        {% if d_plan.strip %}
+                                                            <li class="list-group-item" style="border-left: 4px solid #28a745;">{{ d_plan }}</li>
+                                                        {% endif %}
+                                                    {% empty %}
+                                                        <li class="list-group-item text-muted">No diet data available</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+                    
+        <!-- <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6">
+                      
+                    <div class="single-topic text-center mb-30">
+                        <div class="topic-img">
+                            <img src=" {% static 'assets/img/gallery/cat1.png' %} " alt="">
+                            <div class="topic-content-box">
+                                <div class="topic-content">
+                                    <h3>Personal traning</h3>
+                                    <p>You’ll look at graphs and charts in Task One, how to approach the task and <br> the language needed for a successful answer.</p>
+                                    <a href="courses" class="border-btn">View Courses</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="single-topic text-center mb-30">
+                        <div class="topic-img">
+                            <img src=" {% static 'assets/img/gallery/cat2.png' %} " alt="">
+                            <div class="topic-content-box">
+                                <div class="topic-content">
+                                    <h3>Group traning</h3>
+                                    <p>You’ll look at graphs and charts in Task One, how to approach the task and <br> the language needed for a successful answer.</p>
+                                    <a href="courses" class="btn">View Courses</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    <!-- Traning categories End-->
+    <div class="col-xl-12">
+        <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+           <h2>Science Of Fitness</h2>
+        </div>
+    </div>
+    <!--? video_start -->
+    <div class="video-area section-bg2 d-flex align-items-center"  data-background="{% static 'assets/img/gallery/video-bg.png' %}">
+        <div class="container">
+            <div class="video-wrap position-relative" >
+                <div class="video-icon" >
+                    <a  href="https://www.youtube.com/watch?v=K4Ze-Sp6aUE&t=38s" target="_blank"  class="play-btn btn-icon"  ><i class="fas fa-play" ></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- video_end -->
+    <!-- ? services-area -->
+    <section class="services-area">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <div class="features-icon">
+                            <img src=" {% static 'assets/img/icon/icon1.png' %}?v=2 " alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Location</h3>
+                            <p>Thoothukudi,</p><p>Tamil Nadu - 628401</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="features-icon">
+                            <img src=" {% static 'assets/img/icon/icon2.png' %}?v=2 " alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Phone</h3>
+                            <p>(91+) 0461 9257</p>
+                            <p>  (91+) 934 244 9257</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="features-icon">
+                            <img src=" {% static 'assets/img/icon/icon3.png' %}?v=2 " alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Email</h3>
+                            <p>spotter3x10@gmail.com</p>
+                            <p>spotter3x3contact@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+    <!--? Footer Start-->
+    <div class="footer-area black-bg">
+        <div class="container">
+            <div class="footer-top footer-padding">
+                <!-- Footer Menu -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="single-footer-caption mb-50 text-center">
+                            <!-- logo -->
+                            <div class="footer-logo wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <a href="index"><img src=" {% static 'assets/img/logo/logo2_footer.png' %} " alt=""></a>
+                            </div>
+                            <!-- Menu -->
+                            <!-- Header Start -->
+                            <div class="header-area main-header2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                                <div class="main-header main-header2">
+                                    <div class="menu-wrapper menu-wrapper2">
+                                        <!-- Main-menu -->
+                                        <div class="main-menu main-menu2 text-center">
+                                            <nav>
+                                                <ul>
+                                                    <li><a href="/">Home</a></li>
+                                                    <li><a href="about">About</a></li>
+                                                    <li><a href="courses">Courses</a></li>
+                                                    <li><a href="calorie">Calorie</a></li>
+                                                    <li><a href="sport">Sport</a></li>
+                                                    <li><a href="contact">Contact</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Header End -->
+                            <!-- social -->
+                            <div class="footer-social mt-30 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".8s">
+                                <a href="https://x.com/Spotter26425899"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/profile.php?id=61583796562346"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://in.pinterest.com/spotter3x10/"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right text-center">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+      <!-- Footer End-->
+</footer>
+  <!-- Scroll Up -->
+<div id="back-top" >
+    <a title="Go to Top" href=" {% static '#' %} "> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<!-- JS here -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.spotter-toast');
+        toasts.forEach(toast => {
+            // Wait 5 seconds, then fade out
+            setTimeout(() => {
+                toast.style.animation = "fadeOut 0.5s ease forwards";
+                setTimeout(() => toast.remove(), 500);
+            }, 5000);
+        });
+    });
+</script>
+<script src=" {% static './assets/js/vendor/modernizr-3.5.0.min.js' %} "></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src=" {% static './assets/js/vendor/jquery-1.12.4.min.js' %} "></script>
+<script src=" {% static './assets/js/popper.min.js' %} "></script>
+<script src=" {% static './assets/js/bootstrap.min.js' %} "></script>
+<!-- Jquery Mobile Menu -->
+<script src=" {% static './assets/js/jquery.slicknav.min.js' %} "></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src=" {% static './assets/js/owl.carousel.min.js' %} "></script>
+<script src=" {% static './assets/js/slick.min.js' %} "></script>
+<!-- One Page, Animated-HeadLin -->
+<script src=" {% static './assets/js/wow.min.js' %} "></script>
+<script src=" {% static './assets/js/animated.headline.js' %} "></script>
+<script src=" {% static './assets/js/jquery.magnific-popup.js' %} "></script>
+
+<!-- Date Picker -->
+<script src=" {% static './assets/js/gijgo.min.js' %} "></script>
+<!-- Nice-select, sticky -->
+<script src=" {% static './assets/js/jquery.nice-select.min.js' %} "></script>
+<script src=" {% static './assets/js/jquery.sticky.js' %} "></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src=" {% static './assets/js/jquery.counterup.min.js' %} "></script>
+<script src=" {% static './assets/js/waypoints.min.js' %} "></script>
+<script src=" {% static './assets/js/jquery.countdown.min.js' %} "></script>
+<script src=" {% static './assets/js/hover-direction-snake.min.js' %} "></script>
+
+<!-- contact js -->
+<script src=" {% static './assets/js/contact.js' %} "></script>
+<script src=" {% static './assets/js/jquery.form.js' %} "></script>
+<script src=" {% static './assets/js/jquery.validate.min.js' %} "></script>
+<script src=" {% static './assets/js/mail-script.js' %} "></script>
+<script src=" {% static './assets/js/jquery.ajaxchimp.min.js' %} "></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src=" {% static './assets/js/plugins.js' %} "></script>
+<script src=" {% static './assets/js/main.js' %} "></script>
+
+</body>
+</html>

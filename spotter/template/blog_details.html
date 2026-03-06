@@ -1,0 +1,415 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Spotter</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}?v=2">
+    
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+<style>
+    .blog-name{
+        margin-bottom: 0; 
+        font-weight: 600; 
+        color: #d11212; 
+        font-size: 14px;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #ff0000 !important; /* Active page is Red */
+        border-color: #ff0000 !important;
+        color: #fff !important;
+    }
+
+    .pagination .page-link {
+        color: #ff0000; /* Numbers are Red */
+        background-color: #1a1a1a; /* Background is Black */
+        border: 1px solid #333;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #ff0000;
+        color: #fff;
+    }
+</style>
+<div id="toast-container" style="position: fixed; top: 30px; right: 30px; z-index: 9999;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="spotter-toast">
+                <span class="toast-icon">⚠</span>
+                <span class="toast-text">{{ message }}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<body>
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'assets/img/logo/loder.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <div class="logo">
+                            <a href="/"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                        </div>
+                        <div class="main-menu f-right d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/about">About</a></li>
+                                    <li><a href="/courses">Courses</a></li>
+                                    <li><a href="/calorie">Calorie</a></li>
+                                    <li><a href="/sport">Sport</a></li>
+                                    <li><a href="/blog">Blog</a></li>
+                                    <li><a href="/contact">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="header-btns d-none d-lg-block f-right">
+                            {% if user.is_authenticated %}
+                                <a href="/signout" class="btn">Log Out</a>
+                            {% else %}
+                                <a href="/signup" class="btn">Log In</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="slider-area2">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 pt-70">
+                                <h2>Post Blog</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section class="blog_area single-post-area section-padding">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 posts-list">
+                        <div class="comment-form mb-50">
+                            <h2>Post a Blog</h2>
+                            </br></br></br>
+                            <form method="POST" class="form-contact comment_form" enctype="multipart/form-data"  id="commentForm">
+                                {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6>Enter Your Blog Title :</h6></br>
+                                    <div class="form-group">
+                                         <input class="form-control" name="title" id="title" type="text" placeholder="Title" required>
+                                    </div></br>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <h6>Enter Your Blog :</h6></br>
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="What's on your mind?"></textarea>
+                                    </div></br>
+                                </div>
+                                <div class="col-sm-6">
+                                   <h6>Enter Your Name :</h6></br>
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Name">
+                                   </div></br>
+                               </div>
+                                <div class="col-sm-6">
+                                    <h6>Upload a Image <span style="font-weight: normal; color: #999; font-size: 13px; margin-left: 5px;">(Optional)</span> :</h6></br>
+                                    <div class="form-group">
+                                        <input class="form-control" name="image" id="fileInput" accept="image/*" type="file" onchange="displayFileName(this)" placeholder="Blog Pic" >
+                                        <div id="preview">
+                                            <img id="chosenImage" style="display:none; width: 200px; margin-top: 10px;">
+                                        </div></br>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group"></br>
+                                   <button type="submit"  class="button button-contactForm btn_1 boxed-btn">Post Blog</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="blog_area single-post-area section-padding">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 posts-list">
+                        <div class="comments-area">
+                            <h2 class="mb-30 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">Recent Posts ({{ all_blogs.count }})</h4>
+                            
+                            {% for blog in img_blogs %}
+                            
+                                <div class="comment-list" style="padding: 20px; border: 1px solid #f0f0f0; border-radius: 10px; margin-bottom: 20px; background: #fff;">
+                                    <div class="single-comment wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                        <div class="user">
+                                            <h5 class="mb-10">
+                                                <a href="{% url 'post' blog.pk %}" style="color: #FFFFFF; font-size: 25px; font-weight: 700;">{{ blog.title }}</a>
+                                            </h5>
+                                            {% if blog.comment|length >= 20 %}
+                                        
+                                            <p class="comment" style="color: #707b8e; line-height: 1.6; margin-bottom: 15px;">
+                                               <a href="{% url 'post' blog.pk %}"> {{ blog.comment|truncatechars:100 }}  </a>
+                                            </p>
+                                            {% else %}
+                                            <p class="comment" style="color: #707b8e; line-height: 1.6; margin-bottom: 15px;">
+                                                {{ blog.comment }}
+                                            </p>
+                                            
+                                            {% endif %}
+                                            <div class="d-flex justify-content-between align-items-center pt-10" style="border-top: 1px solid #f9f9f9; ">
+                                                <div class="name-area">
+                                                    <p class="blog-name">
+                                                        <i class="fa fa-user"></i> {{ blog.name }}
+                                                    </p>
+                                                </div>
+                                                <div class="date-area">
+                                                    <p class="date" style="margin-bottom: 0; font-size: 11px; color: #999; text-transform: uppercase;">
+                                                        <i class="fas fa-clock"></i> {{ blog.posted_at }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </br>
+                            {% empty %}
+                                <div class="text-center p-5">
+                                    <p>No posts available. Be the first to share your journey!</p>
+                                </div>
+                            {% endfor %}
+                            
+                            <nav class="blog-pagination justify-content-center d-flex">
+                                <ul class="pagination">
+                                    {% if img_blogs.has_previous %}
+                                        <li class="page-item">
+                                            <a href="?page={{ img_blogs.previous_page_number }}" class="page-link">
+                                                <i class="ti-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% for num in img_blogs.paginator.page_range %}
+                                        <li class="page-item {% if img_blogs.number == num %}active{% endif %}">
+                                            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                                        </li>
+                                    {% endfor %}
+
+                                    {% if img_blogs.has_next %}
+                                        <li class="page-item">
+                                            <a href="?page={{ img_blogs.next_page_number }}" class="page-link">
+                                                <i class="ti-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                        
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-area">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="features-icon">
+                                <img src="{% static 'assets/img/icon/icon1.png' %}?v=2" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Location</h3>
+                                <p>Thoothukudi,</p><p>Tamil Nadu - 628401</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                            <div class="features-icon">
+                                <img src="{% static 'assets/img/icon/icon2.png' %}?v=2" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Phone</h3>
+                                <p>(91+) 0461 9257</p>
+                                <p>  (91+) 934 244 9257</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-40 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                            <div class="features-icon">
+                                <img src="{% static 'assets/img/icon/icon3.png' %}?v=2" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Email</h3>
+                                <p>spotter3x10@gmail.com</p>
+                                <p>spotter3x3contact@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!--? Footer Start-->
+        <div class="footer-area black-bg">
+            <div class="container">
+                <div class="footer-top footer-padding">
+                    <!-- Footer Menu -->
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="single-footer-caption mb-50 text-center">
+                                <!-- logo -->
+                                <div class="footer-logo wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                    <a href="index"><img src=" {% static 'assets/img/logo/logo2_footer.png' %} " alt=""></a>
+                                </div>
+                                <!-- Menu -->
+                                <!-- Header Start -->
+                                <div class="header-area main-header2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                                    <div class="main-header main-header2">
+                                        <div class="menu-wrapper menu-wrapper2">
+                                            <!-- Main-menu -->
+                                            <div class="main-menu main-menu2 text-center">
+                                                <nav>
+                                                    <ul>
+                                                        <li><a href="/">Home</a></li>
+                                                        <li><a href="about ">About</a></li>
+                                                        <li><a href="courses ">Courses</a></li>
+                                                        <li><a href="calorie ">Calorie</a></li>
+                                                        <li><a href="sport ">Sport</a></li>
+                                                        <li><a href="contact ">Contact</a></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Header End -->
+                                <!-- social -->
+                                <div class="footer-social mt-30 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".8s">
+                                    <a href="https://x.com/Spotter26425899"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://www.facebook.com/profile.php?id=61583796562346"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://in.pinterest.com/spotter3x10/"><i class="fab fa-pinterest-p"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-12">
+                            <div class="footer-copy-right text-center">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href=" {% static '#' %} "> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const chosenImage = document.getElementById('chosenImage');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    chosenImage.setAttribute('src', reader.result);
+                    chosenImage.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script>function displayFileName(input) {
+        const fileNameDisplay = document.getElementById('file-name-display');
+        if (input.files && input.files.length > 0) {
+            // Change text to the actual file name
+            fileNameDisplay.innerHTML = "Selected: <strong>" + input.files[0].name + "</strong>";
+        } else {
+            fileNameDisplay.innerHTML = "";
+        }
+    }</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.spotter-toast');
+            toasts.forEach(toast => {
+                // Wait 5 seconds, then fade out
+                setTimeout(() => {
+                    toast.style.animation = "fadeOut 0.5s ease forwards";
+                    setTimeout(() => toast.remove(), 500);
+                }, 5000);
+            });
+        });
+    </script>
+    <script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static './assets/js/popper.min.js' %}"></script>
+    <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static './assets/js/slick.min.js' %}"></script>
+    <script src="{% static './assets/js/wow.min.js' %}"></script>
+    <script src="{% static './assets/js/animated.headline.js' %}"></script>
+    <script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static './assets/js/main.js' %}"></script>
+</body>
+</html>

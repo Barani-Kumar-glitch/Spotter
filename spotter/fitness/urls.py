@@ -1,0 +1,30 @@
+from django.urls import path
+from fitness import views
+
+urlpatterns = [
+    path('',views.index,name="index"),
+    path('signout',views.signout,name="signout"),
+    path('signup',views.signup,name="signup"),
+    path('signin',views.signin,name="signin"),
+    path('about',views.about,name="about"),
+    path('blog_details',views.blog_details,name="blog_details"),
+    path('blog',views.blog,name="blog"),
+    path('diets',views.diets,name="diets"),
+    path('exercises',views.exercises,name="exercises"),
+    path('contact',views.contact,name="contact"),
+    path('courses',views.courses,name="courses"),
+    path('elements',views.elements,name="elements"),
+    path('sport',views.sport,name="sport"),
+    path('gym_games',views.gym_games,name="gym_games"),
+    path('weight_lifiting',views.weight_lifiting,name="weight_lifiting"),
+    path('power_lifiting',views.power_lifiting,name="power_lifiting"),
+    path('body_building',views.body_building,name="body_building"),
+    path('strong_man',views.strong_man,name="strong_man"),
+    path('track_field',views.track_field,name="track_field"),
+    path('gym_nastics',views.gym_nastics,name="gym_nastics"),
+    path('main',views.main,name="main"),
+    path('calorie',views.calorie,name="calorie"),
+    path('calorie_results',views.calorie_results,name="calorie_results"),
+    path('post/<int:pk>/',views.post,name="post"),
+    path('target/<int:pk>/',views.target,name="target"),
+]

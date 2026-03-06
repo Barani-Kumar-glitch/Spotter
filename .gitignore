@@ -1,0 +1,23 @@
+# --- Django Security ---
+.env
+db.sqlite3
+
+# --- Python Files ---
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual Environments ---
+venv/
+env/
+ENV/
+.venv/
+
+# --- Media and Static ---
+media/
+# Only ignore static if you don't want to upload your assets 
+# (Usually, for Spotter, we DO NOT ignore static/ but we DO ignore media/)
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db

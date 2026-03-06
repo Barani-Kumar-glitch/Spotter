@@ -1,0 +1,734 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Spotter</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}?v=2">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/gijgo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+<body class="black-bg">
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src=" {% static 'assets/img/logo/loder.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <!-- Alert Message -->
+    <style>
+
+    /* 1. The Alert Wrapper (Pushes content down, doesn't hide it) */
+    .spotter-alert-wrapper {
+        background: #000; /* Matches theme black-bg */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #222;
+    }
+
+    /* 2. The Alert Box (Sized exactly like the Log In / Sign Up button) */
+    .alert-pop-spotter {
+        background: #ff4d4d; /* Spotter Danger Red */
+        color: #ffffff;
+        
+        /* Matching Spotter Button Dimensions & Style */
+        padding: 4px 10px;
+        min-width: 100px;
+        text-align: center;
+        
+        /* Spotter Typography */
+        font-family: "Teko", sans-serif; /* Standard Spotter font family */
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        animation: fadeInDown 0.4s ease-out;
+    }
+
+    .alert-pop-spotter:hover {
+        background: #cc0000;
+        transform: scale(0.98);
+    }
+
+    /* Icon spacing */
+    .alert-pop-spotter i {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    /* Animation to drop in smoothly */
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUpOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-20px); }
+    }
+
+    .blog_item_title h5 a, 
+    .blog_item_title p {
+        color: #fff; /* Initial white color */
+        transition: color 0.3s ease; /* Smooth transition */
+        text-decoration: none; /* Removes default underline from link */
+    }
+
+    /* 2. Change to Rubbish Red when hovering over the title area */
+    .blog_item_title:hover h5 a,
+    .blog_item_title:hover p {
+        color: #ff1313; /* Rubbish Red */
+        display: inline-block; /* Required for transform to work properly */
+        transition: transform 0.3s ease-in-out; /* The animation lives here */
+        transform: scale(1);
+    }
+
+    /* 3. Optional: Specific hover for the link if mouse is directly on it */
+    .blog_item_title h5 a:hover {
+        color: #ff1313;
+        text-decoration: underline; /* Adds underline only when touching the link */
+        transform: scale(1.1); /* Slight pop effect for the icon */
+        transition: 0.3s;
+    }
+    /* Fix the overall card container */
+    .spotter-blog-card {
+        height: 450px; /* Total fixed height for the card */
+        background: #0a0a0a;
+        border: 1px solid #1a1a1a;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Fix the Image Box */
+    .blog-img-fixed {
+        height: 250px; /* Fixed height for the image area */
+        width: 100%;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .blog-img-fixed img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This prevents image cropping/stretching issues */
+        transition: transform 0.5s ease;
+    }
+
+    /* Fix the Content Box */
+    .blog-cap {
+        padding: 20px;
+        height: 200px; /* Remaining height for text */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .blog-category {
+        color: #ff1313; /* Rubbish Red */
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .blog-title-link a {
+        color: #fff;
+        font-size: 20px;
+        line-height: 1.4;
+        transition: color 0.3s ease;
+    }
+
+    /* Hover effect */
+    .spotter-blog-card:hover .blog-title-link a {
+        color: #ff1313;
+    }
+
+    .spotter-blog-card:hover img {
+        transform: scale(1.1);
+    }
+    .gallery-img.big-img.strong{
+        background-image: url("{% static 'assets/img/gallery/strongman.png' %}");
+    }
+    .gallery-img.big-img.power{
+        background-image: url("{% static 'assets/img/gallery/gallery2.png' %}");
+    }
+    .gallery-img.big-img.weight{
+        background-image: url("{% static 'assets/img/gallery/snatch.png' %}");
+    }
+    .gallery-img.big-img.body{
+        background-image: url("{% static 'assets/img/gallery/gallery4.png' %}");
+    }
+    .gallery-img.big-img.track{
+        background-image: url("{% static 'assets/img/gallery/javeline.png' %}");
+    }
+    .gallery-img.big-img.gym{
+        background-image: url("{% static 'assets/img/gallery/vault.png' %}");
+    }
+</style>
+
+<div id="toast-container" style="position: fixed; top: 30px; right: 30px; z-index: 9999;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="spotter-toast">
+                <span class="toast-icon">⚠</span>
+                <span class="toast-text">{{ message }}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+
+    
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="#"><img src=" {% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                           
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="about">About</a></li>
+                                    <li><a href="courses">Courses</a></li>
+                                    <li><a href="calorie">Calorie</a></li>
+                                    <li><a href="sport">Sport</a></li>
+                                    <li><a href="blog">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="blog">Blog</a></li>
+                                            <li><a href="blog_details">Blog Details</a></li>
+                                            <!-- <li><a href="elements">Elements</a></li> -->
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>          
+                        <!-- Header-btn -->
+                        {% if user.is_authenticated %}
+                        <div class="header-btns d-none d-lg-block f-right">
+                           <a href="signout" class="btn">Log Out</a>
+                        {% else %}
+                           <a href="signup" class="btn">Log In</a>
+                       </div>
+                       {% endif %}
+                       <!-- Mobile Menu -->
+                       <div class="col-12">
+                          <div class="mobile_menu d-block d-lg-none"></div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<main>
+    <!--? slider Area Start-->
+    <div class="slider-area position-relative">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-9 col-md-10">
+                            <div class="hero__caption">
+                              {% if user.is_authenticated %}
+                                <span data-animation="fadeInLeft" data-delay="0.1s">Hi {{ request.user.username }} , </span>
+                              {% else %}
+                                <span data-animation="fadeInLeft" data-delay="0.1s">Hi </span>
+                              {% endif %}
+                                <h1 data-animation="fadeInLeft" data-delay="0.4s">This is Spotter</h1>
+                                <a href="courses" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">My Courses</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+    
+
+    <!-- Courses area End -->
+    <!--? about.html Area-2 Start -->
+    <section class="about-area2 fix pb-padding pt-50 pb-80">
+        <div class="support-wrapper align-items-center">
+            <div class="right-content2 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" >
+                <!-- img -->
+                <div class="right-img">
+                    <img src="{% static 'assets/img/gallery/about.png' %}" alt="">
+                </div>
+            </div>
+            <div class="left-content2">
+                <!-- section tittle -->
+                <div class="section-tittle2 mb-20 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
+                    <div class="front-text">
+                        <h2 class="">About Me</h2>
+                        <p>The Categorizes training into specific athletic goals like Bodybuilding, Muscle Gain, and Weight Loss.</p>
+                        <p class="mb-20">Built to handle complex backend logic like BMR (Basal Metabolic Rate) and TDEE (Total Daily Energy Expenditure) based on user-specific data.</p>
+                        <p class="mb-20">The Features dedicated sections for Weight Lifting (Snatch/Clean & Jerk), Powerlifting, Strongman, Track & Field, and even Gymnastics.</p>
+                        <p class="mb-20">Covers critical topics such as nutrition (e.g., "Antibiotic and Supplement Options"), recovery protocols, and fitness trends.</p>
+                        <a href="courses" class="btn">My Courses</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about.html Area End -->
+
+    <!-- Traning categories Start -->
+    <section class="traning-categories black-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="single-topic text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="topic-img">
+                            <img src=" {% static 'assets/img/gallery/cat1.png' %}" alt="">
+                            <div class="topic-content-box">
+                                <div class="topic-content">
+                                    <h3>Exercise</h3>
+                                    <p>A physical movement designed to improve strength, flexibility, or cardiovascular health by targeting <br> specific muscle groups through repetitive motions.</p>
+                                    <a href="exercises" class="border-btn">View Courses</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="single-topic text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="topic-img">
+                            <img src=" {% static 'assets/img/gallery/cat2.png' %}" alt="">
+                            <div class="topic-content-box">
+                                <div class="topic-content">
+                                    <h3>Diet</h3>
+                                    <p>A diet is a structured nutritional plan designed to provide the body with essential macronutrients and <br> vitamins required for optimal health and physical recovery.</p>
+                                    <a href="diets" class="btn">View Courses</a>
+                                </div>
+                            </div> v
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Traning categories End-->
+    <!--? Team -->
+    <section class="team-area pt-80">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-xl-12">
+                    <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <h2>What I Offer</h2>
+                    </div>
+                </div>
+                {% for target in guide %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".{% widthratio forloop.counter 1 2 %}s" >
+                        <div class="cat-icon" >
+                            <div class="blog_item_img">
+                               <a href="{% url 'target' target.pk %}">
+                                   <img src="{% static 'assets/img/gallery/team' %}{{ forloop.counter }}.png" alt="{{ target.body_target }}">
+                               </a>
+                            </div>
+                        </div>
+                        <div class="cat-cap">
+                            <div class="blog_item_title">
+                               <h5><a href="{% url 'target' target.pk %}">{{ target.body_target }}</a></h5>
+                               <p>{{ target.purpose }}</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- <div class="col-lg-4 col-md-6">
+                    <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="cat-icon">
+                            <img src="{% static 'assets/img/gallery/team2.png' %}" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5><a href="services">Muscle Gain</a></h5>
+                            <p>You’ll look at graphs and charts in Task One, how to approach the task </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s">
+                        <div class="cat-icon">
+                            <img src="{% static 'assets/img/gallery/team3.png' %}" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5><a href="services">Weight Loss</a></h5>
+                            <p>You’ll look at graphs and charts in Task One, how to approach the task </p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+           
+    <!-- Services End -->
+    <!--? Gallery Area Start -->
+    <section>
+        <form method ="POST" action="{% url 'sport' %}">
+            {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <h2 >From Sport</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-area">
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="box snake mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                            <div class="gallery-img big-img weight"></div>
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <h3>Weight Lifting </h3>
+                                    
+                                    <a href="{% url 'weight_lifiting' %}"><i class="ti-layout-column2-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="box snake mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                            <div class="gallery-img big-img power"></div>
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <h3>Power Lifting </h3>
+                                    
+                                    <a href="{% url 'power_lifiting' %}"><i class="ti-bolt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="box snake mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s">
+                            <div class="gallery-img big-img strong"></div>
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <h3>Strong Man </h3>
+                                    <a href="{% url 'strong_man' %}"><i class="ti-user"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                        <div class="box snake mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                            <div class="gallery-img big-img body"></div>
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <h3>Body Buliding </h3>
+                                    <a href="{% url 'body_building' %}"> <i class="ti-crown"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                        <div class="box snake mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s">
+                            <div class="gallery-img big-img track"></div>
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <h3>Track & Field </h3>
+                                    <a href="{% url 'track_field' %}"><i class="ti-timer"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="box snake mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">
+                            <div class="gallery-img big-img gym"></div>
+                            <div class="overlay">
+                                <div class="overlay-content">
+                                    <h3>Gymnastics </h3>
+                                    <a href="{% url 'gym_nastics' %}"><i class="ti-infinite"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </section>
+    <!-- Gallery Area End -->
+    <!-- Courses area start -->
+
+    <!--? Blog Area Start -->
+    <section class="home-blog-area pt-10 pb-50">
+        <div class="container">
+            <!-- Section Tittle -->
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-9 col-sm-10">
+                    <div class="section-tittle text-center mb-100 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
+                        <h2>From Blog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            {% for blog in img_blogs|slice:":2" %}
+                {% if blog.image %}
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="home-blog-single spotter-blog-card mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="blog-img-cap">
+                            <div class="blog-img-fixed">
+                                <a href="{% url 'post' blog.pk %}">
+                                <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                                </a>
+                            </div>
+                            <div class="blog-cap">
+                                <span class="blog-category"><i class="fa fa-user"></i>   {{ blog.title }}</span>
+                                <h3 class="blog-title-link">
+                                    <a href="{% url 'post' blog.pk %}">
+                                        {{ blog.comment|truncatechars:100 }}
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="home-blog-single mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="blog-img-cap">
+                            <div class="blog-img">
+                                <img src="{% static 'assets/img/gallery/blog2.png' %}" alt="">
+                            </div>
+                            <div class="blog-cap">
+                                <span>Gym & Fitness</span>
+                                <h3><a href="blog_details">Your Antibiotic One Day To 10 Day Options</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            {% empty %}
+                <div class="text-center p-5 spotter-text-light">
+                    <p>No Posts Available. Be the First to Share your Journey!</p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Blog Area End -->
+    <div class="col-xl-12">
+        <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+            <h2>Fitness Info</h2>
+        </div>
+    </div>
+    <!--? video_start -->
+    <div class="video-area section-bg2 d-flex align-items-center"  data-background="{% static 'assets/img/gallery/video-bg.png' %}">
+        <div class="container">
+            <div class="video-wrap position-relative">
+                <div class="video-icon" >
+                    <a  href="https://www.youtube.com/watch?v=LYYyQcAJZfk&list=PLPNW_gerXa4O24l7ZHoJbMC2xOO7SpS7K&t=38s" target="_blank"  class="play-btn btn-icon"  ><i class="fas fa-play" ></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- video_end -->
+    <!-- ? services-area -->
+    <section class="services-area">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <div class="features-icon">
+                            <img src=" {% static 'assets/img/icon/icon1.png' %}?v=2" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Location</h3>
+                            <p>Thoothukudi,</p><p>Tamil Nadu - 628401</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="features-icon">
+                            <img src=" {% static 'assets/img/icon/icon2.png' %}?v=2" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Phone</h3>
+                            <p>(91+) 0461 9257</p>
+                            <p>  (91+) 934 244 9257</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-services mb-40 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                        <div class="features-icon">
+                            <img src=" {% static 'assets/img/icon/icon3.png' %}?v=2" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <h3>Email</h3>
+                            <p>spotter3x10@gmail.com</p>
+                            <p>spotter3x3contact@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+    <!--? Footer Start-->
+    <div class="footer-area black-bg">
+        <div class="container">
+            <div class="footer-top footer-padding">
+                <!-- Footer Menu -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="single-footer-caption mb-50 text-center">
+                            <!-- logo -->
+                            <div class="footer-logo wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <a href="index"><img src=" {% static 'assets/img/logo/logo2_footer.png' %}" alt=""></a>
+                            </div>
+                            <!-- Menu -->
+                            <!-- Header Start -->
+                            <div class="header-area main-header2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                                <div class="main-header main-header2">
+                                    <div class="menu-wrapper menu-wrapper2">
+                                        <!-- Main-menu -->
+                                        <div class="main-menu main-menu2 text-center">
+                                            <nav>
+                                                <ul>
+                                                    <li><a href="/">Home</a></li>
+                                                    <li><a href="about">About</a></li>
+                                                    <li><a href="courses">Courses</a></li>
+                                                    <li><a href="calorie">Calorie</a></li>
+                                                    <li><a href="sport">Sport</a></li>
+                                                    <li><a href="contact">Contact</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Header End -->
+                            <!-- social -->
+                            <div class="footer-social mt-30 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".8s">
+                                <a href="https://x.com/Spotter26425899"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/profile.php?id=61583796562346"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://in.pinterest.com/spotter3x10/"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right text-center">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- Footer End-->
+</footer>
+  <!-- Scroll Up -->
+<div id="back-top" >
+    <a title="Go to Top" href="{% static '#' %}"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<!-- JS here -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.spotter-toast');
+        toasts.forEach(toast => {
+            // Wait 5 seconds, then fade out
+            setTimeout(() => {
+                toast.style.animation = "fadeOut 0.5s ease forwards";
+                setTimeout(() => toast.remove(), 500);
+            }, 5000);
+        });
+    });
+</script>
+<script src=" {% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src=" {% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src=" {% static './assets/js/popper.min.js' %}"></script>
+<script src=" {% static './assets/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src=" {% static './assets/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src=" {% static './assets/js/owl.carousel.min.js' %}"></script>
+<script src=" {% static './assets/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src=" {% static './assets/js/wow.min.js' %}"></script>
+<script src=" {% static './assets/js/animated.headline.js' %}"></script>
+<script src=" {% static './assets/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src=" {% static './assets/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src=" {% static './assets/js/jquery.nice-select.min.js' %}"></script>
+<script src=" {% static './assets/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src=" {% static './assets/js/jquery.counterup.min.js' %}"></script>
+<script src=" {% static './assets/js/waypoints.min.js' %}"></script>
+<script src=" {% static './assets/js/jquery.countdown.min.js' %}"></script>
+<script src=" {% static './assets/js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src=" {% static './assets/js/contact.js' %}"></script>
+<script src=" {% static './assets/js/jquery.form.js' %}"></script>
+<script src=" {% static './assets/js/jquery.validate.min.js' %}"></script>
+<script src=" {% static './assets/js/mail-script.js' %}"></script>
+<script src=" {% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src=" {% static './assets/js/plugins.js' %}"></script>
+<script src=" {% static './assets/js/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,910 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Spotter</title>
+    <meta name="description" content="Complete exercise database for muscle and strength.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/gijgo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+ 
+    <style>
+        /* Spotter Exercise Database Custom Styles */
+        .muscle-filter-wrap {
+            background: #1a1a1a;
+            padding: 40px 0;
+            border-bottom: 2px solid #ff4d4d;
+        }
+
+        img {
+        filter: brightness(1); /* Reduces brightness to 80% */
+        transition: filter 0.3s ease; /* Optional: makes the change smooth */
+        }
+
+        /* Optional: Restore brightness when the user hovers over the image */
+        img:hover {
+            filter: brightness(1.3) contrast(1);
+        }
+
+        .exercise-pic {
+            width: 100%;
+            height: 250px; /* Set a fixed height for consistency */
+            display: block;
+            object-fit: cover; /* This is the "magic" - it crops the image to fit without stretching */
+            object-position: center;
+            transition: transform 0.3s ease;
+            filter: brightness(1.25); /* Significant darkening */
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-family: 'Teko', sans-serif;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #ff4d4d;
+            border-color: #ff4d4d;
+            color: white;
+        }
+
+        .exercise-card {
+            background: #111;
+            filter: brightness(1);
+            
+            transition: 0.3s;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .exercise-card:hover {
+            transform: scale(1.05);
+            border-color: #ff4d4d;
+            filter: brightness(1.5);
+        }
+
+        .video-box {
+            position: relative;
+            height: 200px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden; /* Prevents image from leaking out */
+             /* Optional: rounds the corners like your reference */
+            margin-bottom: 15px;
+        }
+
+        .video-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .play-overlay {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 77, 77, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            animation: pulse-small 2s infinite;
+        }
+
+        @keyframes pulse-small {
+            0% { box-shadow: 0 0 0 0px rgba(255, 77, 77, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+            100% { box-shadow: 0 0 0 0px rgba(255, 77, 77, 0); }
+        }
+
+        .ex-meta {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .ex-title {
+            color: #fff;
+            font-family: 'Teko', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .btn-view {
+            display: block;
+            text-align: center;
+            background: #222;
+            color: #fff;
+            padding: 10px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .btn-view:hover {
+            background: #ff4d4d;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+        }
+        /* Spotter Heading Styles */
+        .spotter-header-block {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 40px;
+            border-left: 5px solid #b30000; /* The Rubbish Red Accent Bar */
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .text-outline {
+            /* Creates the gritty "hollow" text effect */
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent;
+            display: block;
+        }
+
+        .section-subtitle {
+            color: #b30000; /* Rubbish Red */
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* Optional: Dark Background for the whole section */
+        .exercise-section {
+            background-color: #121212;
+            padding: 60px 0;
+            
+        }
+        .exercise-card .text-danger {
+            font-family: 'Oswald', sans-serif; /* Uses the font we added earlier */
+            font-size: 14px;                /* Increases size */
+            text-transform: uppercase;        /* All caps for gym aesthetic */
+            font-weight: 700;                 /* Makes it thicker */
+            letter-spacing: 1px;              /* Gives it a pro look */
+        }
+    </style>
+</head>
+<div id="toast-container" style="position: fixed; top: 30px; right: 30px; z-index: 9999;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="spotter-toast">
+                <span class="toast-icon">⚠</span>
+                <span class="toast-text">{{ message }}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<body class="black-bg">
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src=" {% static 'assets/img/logo/loder.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="/"><img src=" {% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                           
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/about">About</a></li>
+                                    <li><a href="/courses">Courses</a></li>
+                                    <li><a href="/calorie">Calorie</a></li>
+                                    <li><a href="/sport">Sport</a></li>
+                                    <li><a href="/blog">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="/blog">Blog</a></li>
+                                            <li><a href="/blog_details">Blog Details</a></li>
+                                            <!-- <li><a href="elements">Elements</a></li> -->
+                                        </ul>
+                                    </li>
+                                    <li><a href="/contact">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>          
+                        <!-- Header-btn -->
+                        {% if user.is_authenticated %}
+                        <div class="header-btns d-none d-lg-block f-right">
+                           <a href="signout" class="btn">Log Out</a>
+                        {% else %}
+                           <a href="signup" class="btn">Log In</a>
+                        </div>
+                       {% endif %}
+                       <!-- Mobile Menu -->
+                       <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </header>
+
+    <main>
+        <!--? Hero Start -->
+        <div class="slider-area2">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 pt-70">
+                                <h2>Diet</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+        <form method ="POST" action="{% url 'diets' %}">
+            {% csrf_token %}
+        <div class="muscle-filter-wrap">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center wow fadeInRight" data-wow-duration="2s" data-wow-delay=".2s">
+                        <button value="all" name="food_category" class="filter-btn active">All</button>
+                        <button value="Veg" name="food_category" class="filter-btn {% if food_category == 'Veg' %}active{% endif %}">Veg</button>
+                        <button value="Non-Veg" name="food_category" class="filter-btn {% if food_category == 'Non-Veg' %}active{% endif %}">Non-Veg</button>
+                        <button value="Dairy" name="food_category" class="filter-btn {% if food_category == 'Diary' %}active{% endif %}">Diary</button>
+                        <button value="Nuts & Seeds" name="food_category" class="filter-btn {% if food_category == 'Nuts_Seeds' %}active{% endif %}">Nuts & Seeds</button>
+                        <button value="Fruits" name="food_category" class="filter-btn {% if food_category == 'Fruits' %}active{% endif %}">Fruits</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+        
+        <section class="exercise-section">
+            
+            <div class="container">
+                <div class="spotter-header-block wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s" style="text-align: center;">
+                    <div class="accent-line"></div>
+                    <h2 class="section-title">
+                        <span class="text-outline">Protien </span> Foods
+                    </h2>
+                    <p class="section-subtitle">Boosts Metabolism | Bone Health | Immune System Support</p>
+                </div>
+
+                <div id="exercise-container"></div>
+            </div>
+        </section>
+        <section class="exercise-list-area section-padding40">
+            
+            <div class="container">
+                <div class="row">
+                    
+                    
+                    {% for diet in diets %}
+                    
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                {% if diet.p_image %}
+                                  <a href="https://www.youtube.com/watch?v=25CPEIQKLjs" target="_blank" >
+                                  <img src="{{ diet.p_image.url }}" class="exercise-pic" alt="{{ diet.protein }}">
+                                  </a>
+                                {% else %}
+                                  <p>No image uploaded for this diet.</p>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">High-quality Amino Acids with Low Saturated Fat</span>
+                                <h4 class="ex-title"></h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">| Proteid Food</small>
+                                    <small class="text-danger"> {{ diet.category }}</small>
+                                </div>
+                                <a href="https://www.youtube.com/watch?v=25CPEIQKLjs" target="_blank" class="btn-view">{{ diet.protein }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=38s" target="_blank">
+                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                                    <img src="{% static 'assets/img/gallery/blog1.png' %}" alt="">
+                                </a>
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">Chest | Dumbbells</span>
+                                <h4 class="ex-title">Incline Dumbbell Press</h4>
+                                <a href="#" class="btn-view">Watch Technique</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=38s" target="_blank">
+                                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                                    <img src="{% static 'assets/img/gallery/blog2.png' %}" alt="">
+                                </a>
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">Back | Barbell</span>
+                                <h4 class="ex-title">Bent Over Barbell Row</h4>
+                                <a href="#" class="btn-view">Watch Technique</a>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="p-4">
+                                <span class="ex-meta">There is No Data of</span>
+                                <h4 class="ex-title">Protien Food</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+        <section class="exercise-section">
+            
+            <div class="container">
+                <div class="spotter-header-block wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s" style="text-align: center;">
+                    <div class="accent-line"></div>
+                    <h2 class="section-title">
+                        <span class="text-outline">Carbohydrate </span> Foods
+                    </h2>
+                    <p class="section-subtitle">Primary Fuel Source | Nutrient Density | Mood Regulation></p>
+                </div>
+
+                <div id="exercise-container"></div>
+            </div>
+        </section>
+        <section class="exercise-list-area section-padding40">
+            
+            <div class="container">
+                <div class="row">
+                    
+                    {% for diet in diets %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                {% if diet.c_image %}
+                                  <a href="https://www.youtube.com/watch?v=h8UrEKvddCk" target="_blank" >
+                                  <img src="{{ diet.c_image.url }}" class="exercise-pic" alt="{{ diet.carbs }}">
+                                  </a>
+                                  {% else %}
+                                  <p>No image uploaded for this diet.</p>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">Sustained Energy without Spiking Blood Sugar</span>
+                                <h4 class="ex-title">{{ exercise.name }}</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">| Glucide Food</small>
+                                    <small class="text-danger">{{ diet.category }} </small>
+                                </div>
+                                <a href="https://www.youtube.com/watch?v=h8UrEKvddCk" target="_blank" class="btn-view">{{ diet.carbs }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="p-4">
+                                <span class="ex-meta">There is No Data of</span>
+                                <h4 class="ex-title">Carbohydrate Food</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+        <section class="exercise-section">
+            
+            <div class="container">
+                <div class="spotter-header-block wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s" style="text-align: center;">
+                    <div class="accent-line"></div>
+                    <h2 class="section-title">
+                        <span class="text-outline">Fiber </span> Foods
+                    </h2>
+                    <p class="section-subtitle">Weight Management | Blood Sugar Control | Gut Health</p>
+                </div>
+
+                <div id="exercise-container"></div>
+            </div>
+        </section>
+        <section class="exercise-list-area section-padding40">
+            
+            <div class="container">
+                <div class="row">
+                    
+                    {% for diet in diets %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                {% if diet.fi_image %}
+                                  <a href="https://www.youtube.com/watch?v=oLzSoogqVms" target="_blank" >
+                                  <img src="{{ diet.fi_image.url }}" class="exercise-pic" alt="{{ diet.fiber }}">
+                                  </a>
+                                  {% else %}
+                                  <p>No image uploaded for this diet.</p>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">Promotes Regular Bowel Movements and Prevents Constipation</span>
+                                <h4 class="ex-title">{{ exercise.name }}</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">| Cellulose Food</small>
+                                    <small class="text-danger">{{ diet.category }}</small>
+                                </div>
+                                <a href="https://www.youtube.com/watch?v=oLzSoogqVms" target="_blank" class="btn-view">{{ diet.fiber }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="p-4">
+                                <span class="ex-meta">There is No Data of</span>
+                                <h4 class="ex-title">Fiber Food</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+        <section class="exercise-section">
+            
+            <div class="container">
+                <div class="spotter-header-block wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s" style="text-align: center;">
+                    <div class="accent-line"></div>
+                    <h2 class="section-title">
+                        <span class="text-outline">Vitamins & </span> Minerals Foods
+                    </h2>
+                    <p class="section-subtitle">Disease Prevention | Improve Cognitive | Immune System Support</p>
+                </div>
+
+                <div id="exercise-container"></div>
+            </div>
+        </section>
+        <section class="exercise-list-area section-padding40">
+            
+            <div class="container">
+                <div class="row">
+                    
+                    {% for diet in diets %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                {% if diet.vm_image %}
+                                  <a href="https://www.youtube.com/watch?v=gwGr4N1BcLI" target="_blank" >
+                                  <img src="{{ diet.vm_image.url }}" class="exercise-pic" alt="{{ diet.vitamins_minerals }}">
+                                  </a>
+                                  {% else %}
+                                  <p>No image uploaded for this diet.</p>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">Micronutrients Play in Maintaining Bodily Functions and Promoting Overall Health</span>
+                                <h4 class="ex-title">{{ exercise.name }}</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">| Micronutrients Food</small>
+                                    <small class="text-danger">{{ diet.category }}</small>
+                                </div>
+                                <a href="https://www.youtube.com/watch?v=gwGr4N1BcLI" target="_blank" class="btn-view">{{ diet.vitamins_minerals }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="p-4">
+                                <span class="ex-meta">There is No Data of</span>
+                                <h4 class="ex-title">Vitamins & Minerals Food</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+        <section class="exercise-section">
+            
+            <div class="container">
+                <div class="spotter-header-block wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s" style="text-align: center;">
+                    <div class="accent-line"></div>
+                    <h2 class="section-title">
+                        <span class="text-outline">Fatty </span> Foods
+                    </h2>
+                    <p class="section-subtitle">Energy Sustenance | Nutrient Absorption | Satiety Management</p>
+                </div>
+
+                <div id="exercise-container"></div>
+            </div>
+        </section>
+        <section class="exercise-list-area section-padding40">
+            
+            <div class="container">
+                <div class="row">
+                    
+                    {% for diet in diets %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="exercise-card">
+                            <div class="video-box">
+                                {% if diet.fa_image %}
+                                  <a href="https://www.youtube.com/watch?v=x2HWU-GqsiE" target="_blank" >
+                                  <img src="{{ diet.fa_image.url }}" class="exercise-pic" alt="{{ diet.fats }}">
+                                  </a>
+                                  {% else %}
+                                  <p>No image uploaded for this diet.</p>
+                                {% endif %}
+                            </div>
+                            <div class="p-4">
+                                <span class="ex-meta">Protecting Organ Function and Regulating Hormones</span>
+                                <h4 class="ex-title">{{ exercise.name }}</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <small class="text-muted">| Dietary Food </small>
+                                    <small class="text-danger">{{ diet.category }}</small>
+                                </div>
+                                <a href="https://www.youtube.com/watch?v=x2HWU-GqsiE" target="_blank" class="btn-view">{{ diet.fats }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="exercise-card">
+                            <div class="p-4">
+                                <span class="ex-meta">There is No Data of</span>
+                                <h4 class="ex-title">Fat Food</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+        <section class="about-area2 fix pb-padding pt-50 pb-80" style="background-color: #000;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="section-tittle text-center mb-80 wow fadeInUp" data-wow-duration="1s">
+                            <span style="color: #ff1313; letter-spacing: 3px; font-weight: 700;">PRO LEVEL GUIDANCE</span>
+                            <h2 style="color: #fff; font-size: 45px;">Mastery <span style="color: #ff1313;">&</span> Intent</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12" style="border-right: 1px solid #333;">
+                        <div class="section-tittle mb-50 wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">
+                            <h2 class="text-center" style="font-size: 28px; color: #fff; border-bottom: 3px solid #ff1313; display: inline-block; padding-bottom: 10px;">
+                                <i class="flaticon-fitness"></i> Tips
+                            </h2>
+                            <p class="text-center mt-20" style="color: #ccc;">Focusing on Health</p>
+                        </div>
+                        
+                        <div class="technique-list">
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" style="background: #111; padding: 25px; border-left: 4px solid #ff1313;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;"><i class="fas fa-egg"></i> Prioritize Protein</h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Aim to include a protein source (eggs, lentils, chicken, tofu) in every meal. It keeps you full longer and protects your muscles.</p>
+                                </div>
+                            </div>
+                            
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" style="background: #111; padding: 25px; border-left: 4px solid #ff1313;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;"><i class="fas fa-glass-water"></i> Hydrate Before You Eat</h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Sometimes your brain confuses thirst with hunger. Drink a glass of water 20 minutes before a meal to clarify your appetite.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s" style="background: #111; padding: 25px; border-left: 4px solid #ff1313;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;"><i class="fas fa-shoe-prints"></i> Start Small</h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Don't change everything on Monday. Pick one habit (like eating a vegetable with lunch) and master it before moving on.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s" style="background: #111; padding: 25px; border-left: 4px solid #ff1313;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;"><i class="fas fa-seedling"></i> Fiber is Your Friend</h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Aim for 25–30g of fiber daily. It aids digestion and regulates blood sugar levels.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s" style="background: #111; padding: 25px; border-left: 4px solid #ff1313;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;"><i class="fas fa-chart-pie"></i> The 80/20 Rule</h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Don't aim for perfection. Eat nutrient-dense foods 80% of the time, and allow yourself treats for the other 20%. This prevents the "binge-restrict" cycle.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <div class="section-tittle mb-50 wow fadeInRight" data-wow-duration="1s" data-wow-delay=".2s">
+                            <h2 class="text-center" style="font-size: 28px; color: #fff; border-bottom: 3px solid #ff1313; display: inline-block; padding-bottom: 10px;">
+                                <i class="flaticon-heart"></i> Tricks
+                            </h2>
+                            <p class="text-center mt-20" style="color: #ccc;">Convince Brain to Cheat Junk Food </p>
+                        </div>
+
+                        <div class="execution-list">
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" style="background: #111; padding: 25px; border-right: 4px solid #ff1313; text-align: right;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;">The "Front-Loading" Trick <i class="fas fa-align-left"></i></h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Eat your vegetables first, protein second, and carbs last. This slows down the glucose spike from the carbs and fills you up on low-calorie fiber first.</p>
+                                </div>
+                            </div>
+                            
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" style="background: #111; padding: 25px; border-right: 4px solid #ff1313; text-align: right;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;">Freeze Your Fruit <i class="fas fa-snowflake"></i></h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Frozen grapes or berries take longer to eat and feel like a decadent dessert, making them a great alternative to ice cream.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s" style="background: #111; padding: 25px; border-right: 4px solid #ff1313; text-align: right;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;">The "H.A.L.T." Check <i class="fas fa-hand-paper"></i></h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">Before you reach for a snack, ask: Am I Hungry, Angry, Lonely, or Tired? If it’s any of the last three, food won't fix it.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s" style="background: #111; padding: 25px; border-right: 4px solid #ff1313; text-align: right;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;">Use Smaller Plates <i class="fas fa-circle"></i></h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">It sounds silly, but the "Delboeuf Illusion" is real. The same portion looks massive on a small plate and tiny on a large one, tricking your brain into feeling satisfied.</p>
+                                </div>
+                            </div>
+
+                            <div class="single-cat mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".6s" style="background: #111; padding: 25px; border-right: 4px solid #ff1313; text-align: right;">
+                                <div class="cat-cap">
+                                    <h5 style="color: #ff1313;">The "Two-Bite" Rule <i class="fas fa-cookie-bite"></i></h5>
+                                    <p style="color: #adadad; margin-bottom: 0;">For desserts, the first and second bites provide the most dopamine. Enjoy them slowly, then consider stopping. The tenth bite rarely tastes as good as the first.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="services-area">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="features-icon">
+                                <img src=" {% static 'assets/img/icon/icon1.png' %}?v=2 " alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Location</h3>
+                                <p>Thoothukudi,</p><p>Tamil Nadu - 628401</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                            <div class="features-icon">
+                                <img src=" {% static 'assets/img/icon/icon2.png' %}?v=2 " alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Phone</h3>
+                                <p>(91+) 0461 9257</p>
+                                <p>  (91+) 934 244 9257</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-40 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                            <div class="features-icon">
+                                <img src=" {% static 'assets/img/icon/icon3.png' %}?v=2 " alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Email</h3>
+                                <p>spotter3x10@gmail.com</p>
+                                <p>spotter3x3contact@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!--? Footer Start-->
+        <div class="footer-area black-bg">
+            <div class="container">
+                <div class="footer-top footer-padding">
+                    <!-- Footer Menu -->
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="single-footer-caption mb-50 text-center">
+                                <!-- logo -->
+                                <div class="footer-logo wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                    <a href="index"><img src="{% static 'assets/img/logo/logo2_footer.png' %}" alt=""></a>
+                                </div>
+                                <!-- Menu -->
+                                <!-- Header Start -->
+                                <div class="header-area main-header2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                                    <div class="main-header main-header2">
+                                        <div class="menu-wrapper menu-wrapper2">
+                                            <!-- Main-menu -->
+                                            <div class="main-menu main-menu2 text-center">
+                                                <nav>
+                                                    <ul>
+                                                        <li><a href="/">Home</a></li>
+                                                        <li><a href="/about">About</a></li>
+                                                        <li><a href="/courses">Courses</a></li>
+                                                        <li><a href="/calorie">Calorie</a></li>
+                                                        <li><a href="/sport">Sport</a></li>
+                                                        <li><a href="/contact">Contact</a></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Header End -->
+                                <!-- social -->
+                                <div class="footer-social mt-30 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".8s">
+                                    <a href="https://x.com/Spotter26425899"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://www.facebook.com/profile.php?id=61583796562346"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://in.pinterest.com/spotter3x10/"><i class="fab fa-pinterest-p"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-12">
+                            <div class="footer-copy-right text-center">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+                              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <!-- Footer End-->
+    </footer>
+    <div id="back-top" >
+      <a title="Go to Top" href="{% static '#' %}"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.spotter-toast');
+        toasts.forEach(toast => {
+            // Wait 5 seconds, then fade out
+            setTimeout(() => {
+                toast.style.animation = "fadeOut 0.5s ease forwards";
+                setTimeout(() => toast.remove(), 500);
+            }, 5000);
+        });
+    });
+</script>
+<script src="{% static './assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static './assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static './assets/js/popper.min.js' %}"></script>
+<script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static './assets/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static './assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static './assets/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static './assets/js/wow.min.js' %}"></script>
+<script src="{% static './assets/js/animated.headline.js' %}"></script>
+<script src="{% static './assets/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static './assets/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static './assets/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static './assets/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{% static './assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static './assets/js/waypoints.min.js' %}"></script>
+<script src="{% static './assets/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static './assets/js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static './assets/js/contact.js' %}"></script>
+<script src="{% static './assets/js/jquery.form.js' %}"></script>
+<script src="{% static './assets/js/jquery.validate.min.js' %}"></script>
+<script src="{% static './assets/js/mail-script.js' %}"></script>
+<script src="{% static './assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src="{% static './assets/js/plugins.js' %}"></script>
+<script src="{% static './assets/js/main.js' %}"></script>
+
+</body>
+</html>
