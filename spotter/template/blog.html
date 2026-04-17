@@ -7,6 +7,9 @@
     <title>Spotter</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    
+    <link rel="manifest" href="{% static 'assets/img/site.webmanifest' %}">
     <link rel="shortcut icon" type="image/x-icon" href=" {% static 'assets/img/favicon.png' %}?v=2">
 
     <!-- CSS here -->
@@ -23,98 +26,7 @@
     <link rel="stylesheet" href=" {% static 'assets/css/style.css' %} ">
     <link rel="stylesheet" href=" {% static 'assets/css/responsive.css' %} ">
 </head>
-<style>
-    @media (max-width: 768px) {
-    .blog_item_img {
-        height: 250px; /* Shorter height for mobile phones */
-    }
-    .blog_details p {
-        color: #BDBDBD;
-    }
-    }
-    .blog_details a h2 {
-        color: #FFFFFF;
-        display: inline-block; /* Required for transform to work properly */
-        transition: transform 0.3s ease-in-out; /* The animation lives here */
-        transform: scale(1); /* Default size */
-    }
-    .blog_details a h2:hover{
-        transform: scale(1.3); /* Slight pop effect for the icon */
-        transition: 0.3s;
-        }
-    /* The container for the image and the date */
-    .blog_item_img {
-        position: relative; /* This is required so the date stays inside this box */
-        width: 100%;
-        height: 450px;      /* Fixed height for all blog images */
-        overflow: hidden;
-           /* Hides the parts of the image that are too big */
-    }
-    .blog_item_img img {
-        display: inline-block; /* Required for transform to work properly */
-        transition: transform 0.3s ease-in-out; /* The animation lives here */
-        transform: scale(1);
-    }
-    .blog_item_img img:hover {
-        transform: scale(1.1); /* Slight pop effect for the icon */
-        transition: 0.3s;
-    }
-    /* The fixed-size image */
-    .diet-post-img {
-        width: 100%;
-        height: 100% !important;
-        object-fit: cover;   /* Crops perfectly without stretching */
-        display: block;
-    }
 
-    /* The Date Badge Link */
-    .blog_item_date {
-        position: absolute;  /* Floats on top of the image */
-        bottom: 20px;        /* Distance from bottom */
-        left: 20px;          /* Distance from left */
-        background: #d11212; /* Your theme's red color */
-        padding: 12px 20px;
-        text-align: center;
-        border-radius: 5px;
-        text-decoration: none; /* Removes underline from link */
-        z-index: 10;         /* Ensures it stays above the image */
-    }
-
-    .blog_item_date h3 {
-        color: #fff;
-        font-size: 22px;
-        font-weight: 700;
-        margin: 0;
-    }
-
-    .blog_item_date p {
-        color: #fff;
-        font-size: 14px;
-        margin: 0;
-        text-transform: uppercase;
-    }
-    .pagination .page-item.active .page-link {
-        background-color: #ff0000 !important; /* Active page is Red */
-        border-color: #ff0000 !important;
-        color: #fff !important;
-    }
-
-    .pagination .page-link {
-        color: #ff0000; /* Numbers are Red */
-        background-color: #1a1a1a; /* Background is Black */
-        border: 1px solid #333;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #ff0000;
-        color: #fff;
-    }
-    /*Blog Image Author and Time*/
-    .blog-info-link li:hover {
-        color: #ff1313;
-        
-    }
-</style>
 <div id="toast-container" style="position: fixed; top: 30px; right: 30px; z-index: 9999;">
     {% if messages %}
         {% for message in messages %}
@@ -161,7 +73,7 @@
                                     <li><a href="blog">Blog</a>
                                         <ul class="submenu">
                                             <li><a href="blog">Blog</a></li>
-                                            <li><a href="blog_details">Blog Details</a></li>
+                                            <li><a href="blog_details">Post Blog</a></li>
                                             <!-- <li><a href="elements ">Elements</a></li> -->
                                         </ul>
                                     </li>

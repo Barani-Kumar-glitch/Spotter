@@ -13,7 +13,8 @@ env/
 ENV/
 .venv/
 
-# --- Media and Static ---
+# --- 
+Media and Static ---
 media/
 # Only ignore static if you don't want to upload your assets 
 # (Usually, for Spotter, we DO NOT ignore static/ but we DO ignore media/)
