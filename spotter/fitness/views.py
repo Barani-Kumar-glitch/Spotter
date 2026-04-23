@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from datetime import datetime
+import ast
 from .models import Post
 from .models import BodybuildingPlan
 from .models import MuscleGainPlan
@@ -243,7 +244,7 @@ def exercises(request):
     # It handles both the initial load and the button clicks.
     return render(request, 'exercises.html', {
         'exercises': exercises_list, 
-        'default_muscle': muscle_group 
+        'active_filter': muscle_group 
     })
     
 
@@ -284,6 +285,8 @@ def contact(request):
 
 def courses(request):
     if request.user.is_authenticated:
+        workout_plan=[]
+        diet_plan=[]
 
         #Fetching Viedo DB
         fitness_edu=ExerciseVideo.objects.first()
@@ -300,8 +303,17 @@ def courses(request):
             }
             return render(request,'courses.html',context)
 
-        workout_plan= user_plan.workout_plan.split('\n')
-        diet_plan= user_plan.diet_plan.split('\n')
+        if user_plan.workout_plan:
+            try:
+                workout_plan = ast.literal_eval(user_plan.workout_plan)
+            except:
+                workout_plan = user_plan.workout_plan.split('\n')
+
+        if user_plan.diet_plan:
+            try:
+                diet_plan = ast.literal_eval(user_plan.diet_plan)
+            except:
+                diet_plan = user_plan.diet_plan.split('\n')
         guide=Course.objects.all()
 
         context = {
@@ -476,7 +488,9 @@ def calorie_results(request):
                 messages.error(request, "User Fetching Data is Not Stored in DataBase")
                 return redirect('calorie_results')
             
-        User_Plan.objects.create(user=request.user,diet_plan=diet_plan,workout_plan=workout_plan)
+        User_Plan.objects.create(user=request.user,
+                                diet_plan="\n".join(diet_plan),
+                                workout_plan="\n".join(workout_plan))
 
         context = {
             

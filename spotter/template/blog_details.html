@@ -114,7 +114,7 @@
                                 <div class="col-12">
                                     <h6 style="color: white;">Enter Your Blog Title :</h6></br>
                                     <div class="form-group">
-                                         <input class="form-control" name="title" id="title" type="text" placeholder="Title" required/>
+                                         <input class="form-control" name="title" id="title" type="text" oninput="this.value=this.value.replace(/[^a-zA-Z0-9\s-.'":;@#!&(),?|]/g,'')" placeholder="Title" required/>
                                     </div></br>
                                 </div>
                                 
@@ -127,13 +127,13 @@
                                 <div class="col-sm-6">
                                    <h6 style="color: white;">Enter Your Name :</h6></br>
                                     <div class="form-group">
-                                        <input class="form-control" name="name" id="name" type="text" placeholder="Name" required/>
+                                        <input class="form-control" name="name" id="name" type="text" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g,'')" placeholder="Name" required/>
                                    </div></br>
                                </div>
                                 <div class="col-sm-6">
                                     <h6 style="color: white;">Upload a Image <span style="font-weight: normal; color: #999; font-size: 13px; margin-left: 5px;">(Optional)</span> :</h6></br>
                                     <div class="form-group">
-                                        <input class="form-control" name="image" id="fileInput" accept="image/*" type="file" onchange="displayFileName(this)" placeholder="Blog Pic" required/>
+                                        <input class="form-control" name="image" id="fileInput" accept="image/*" type="file" onchange="displayFileName(this)" placeholder="Blog Pic" />
                                         <div id="preview">
                                             <img id="chosenImage" style="display:none; width: 200px; margin-top: 10px;">
                                         </div></br>

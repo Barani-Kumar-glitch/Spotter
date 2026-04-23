@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}?v=1.2">
 </head>
 
 <div id="toast-container" style="position: fixed; top: 30px; right: 30px; z-index: 9999;">
@@ -120,7 +120,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-11">
-                        <div class="main-container">
+                        <div class="main-container ">
                             <form method="POST" action="{% url 'calorie' %}" id="goalForm">
                                 {% csrf_token %}
                                 
@@ -139,15 +139,15 @@
                                     </div>
                                     <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
                                         <label class="form-label">Age</label>
-                                        <input type="number" name="age" class="form-control metric-input" placeholder="Years" required/>
+                                        <input type="number" min="18" max="120" name="age" class="form-control metric-input" placeholder=" in Years" required/>
                                     </div>
                                     <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".4s">
                                         <label class="form-label">Weight</label>
-                                        <input type="number" name="weight" class="form-control metric-input" placeholder="kg" required/>
+                                        <input type="number" min="35" max="150" name="weight" class="form-control metric-input" placeholder="in kg" required/>
                                     </div>
                                     <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".6s">
                                         <label class="form-label">Height</label>
-                                        <input type="number" name="height" class="form-control metric-input" placeholder="cm" required/>
+                                        <input type="number" min="90" max="275" name="height" class="form-control metric-input" placeholder="in cm" required/>
                                     </div>
                                     <div class="col-md-6 mb-4 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
                                         <label class="form-label">Daily Activity Level</label>
@@ -175,7 +175,7 @@
 
                                 <div class="goal-grid">
                                     <button type="submit" name="user_target" value="Weight Loss" class="submit-trigger">
-                                        <div class="goal-card wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" style="border-top: 4px solid #ff4d4d;">
+                                        <div class="goal-card clas-weig wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" style="border-top: 4px solid orange;">
                                             <h4 class="loss-title">Weight Loss</h4>
                                             <span class="calorie-amt">{{ loss }}</span>
                                             <span class="small-desc">Target for Fat Loss</span>
@@ -183,7 +183,7 @@
                                     </button>
 
                                     <button type="submit" name="user_target" value="Maintenance" class="submit-trigger">
-                                        <div class="goal-card wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s" style="border-top: 4px solid #ff1313;">
+                                        <div class="goal-card clas-main wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s" style="border-top: 4px solid #4da3ff;">
                                             <h4 class="maint-title">Maintenance</h4>
                                             <span class="calorie-amt">{{ tdee }}</span>
                                             <span class="small-desc">Keep Current Weight</span>
@@ -191,7 +191,7 @@
                                     </button>
 
                                     <button type="submit" name="user_target" value="Muscle Gain" class="submit-trigger">
-                                        <div class="goal-card wow fadeInUp" data-wow-duration="2s" data-wow-delay=".6s" style="border-top: 4px solid #4da3ff;">
+                                        <div class="goal-card clas-musc wow fadeInUp" data-wow-duration="2s" data-wow-delay=".6s" style="border-top: 4px solid yellowgreen;">
                                             <h4 class="gain-title">Muscle Gain</h4>
                                             <span class="calorie-amt">{{ gain }}</span>
                                             <span class="small-desc">Build Power & Mass</span>

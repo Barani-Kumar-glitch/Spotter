@@ -11,7 +11,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}?v=2">
 
     <!-- CSS here -->
-     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Bangers&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
@@ -24,7 +25,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}?v=3">
 
     
 </head>
@@ -138,21 +139,22 @@
                             <div class="spotter-container wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
                                 <div class="spotter-header ">
                                     <h2>DAILY PERFORMANCE PLAN</h2>
-                                    <p>User: {{ request.user.username }} | Goal: {{ user_data.user_target }}</p>
+                                    <!-- <p>User: {{ request.user.username }} | </p> -->
+                                    <!-- <p>Goal: {{ user_data.user_target }}</p> -->
                                 </div>
 
                                 <div class="table-responsive mt-4">
-                                    <table class="table table-bordered spotter-table" style="background: #fff; border-radius: 8px; overflow: hidden;">
+                                    <table class="table table-bordered spotter-table" style="background: #000000; border-radius: 8px; overflow: hidden;">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th style="width: 50%; text-align: center; background-color: #f8f9fa;">
-                                                    <div class="card-icon" style="font-size: 24px;">🥗</div>
-                                                    <span style="color: #333; font-size: 18px;">WORKOUT ROUTINE</span>
+                                                <th style="width: 50%; text-align: center; background-color: #007bff;">
+                                                    <div class="card-icon" style="font-size: 24px;">🏋️‍♂️</div>
+                                                    <span style="color: #fff; font-size: 18px;">WORKOUT ROUTINE</span>
                                                     <div class="calorie-badge" style="font-size: 15px; background: #e3f2fd; color: #0d47a1; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-left: 10px;">HIGH INTENSITY</div>
                                                 </th>
-                                                <th style="width: 50%; text-align: center; background-color: #f8f9fa;">
-                                                    <div class="card-icon" style="font-size: 24px;">🏋️‍♂️</div>
-                                                    <span style="color: #333; font-size: 18px;">DIET CHART</span>
+                                                <th style="width: 50%; text-align: center; background-color: #28a745;">
+                                                    <div class="card-icon" style="font-size: 24px;">🥗</div>
+                                                    <span style="color: #fff; font-size: 18px;">DIET CHART</span>
                                                     <div class="intensity-badge" style="font-size: 15px; background: #e8f5e9; color: #1b5e20; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-left: 10px;">CALORIE MGMT</div>
                                                 </th>
                                             </tr>
@@ -163,7 +165,7 @@
                                                     <ul class="plan-list list-group list-group-flush" style="list-style: none; padding: 0;">
                                                         {% for r_plan in workout_plan %}
                                                             {% if r_plan.strip %}
-                                                                <li class="list-group-item" style="border-left: 4px solid #007bff; font-size: 13px;">{{ r_plan }}</li>
+                                                                <li class="list-group-item {% if forloop.first %}first-row{% endif %}" style="border-left: 4px solid #007bff; font-size: 13px;">{{ r_plan }}</li>
                                                             {% endif %}
                                                         {% empty %}
                                                             <li class="list-group-item text-muted">No workout data available</li>
@@ -174,7 +176,7 @@
                                                     <ul class="plan-list list-group list-group-flush" style="list-style: none; padding: 0;">
                                                         {% for d_plan in diet_plan %}
                                                             {% if d_plan.strip %}
-                                                                <li class="list-group-item" style="border-left: 4px solid #28a745; font-size: 13px;">{{ d_plan }}</li>
+                                                                <li class="list-group-item {% if forloop.first %}first-row-diet{% endif %}" style="border-left: 4px solid #28a745; font-size: 13px;">{{ d_plan }}</li>
                                                             {% endif %}
                                                         {% empty %}
                                                             <li class="list-group-item text-muted">No diet data available</li>

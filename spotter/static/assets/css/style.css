@@ -4503,7 +4503,7 @@ body { background-color: var(--dark-bg); color: #fff; }
 
 .metric-input {
     background: #222 !important;
-    border: 1px solid #444 !important;
+    border: 1px solid #fff !important;
     color: #fff !important;
     height: 50px;
     border-radius: 5px;
@@ -4537,7 +4537,7 @@ body { background-color: var(--dark-bg); color: #fff; }
     transition: 0.3s;
 }
 
-.submit-trigger:hover .goal-card { border-color: var(--spotter-green); }
+
 
 .calorie-amt { 
     font-size: 32px; 
@@ -4549,9 +4549,9 @@ body { background-color: var(--dark-bg); color: #fff; }
 
 .small-desc { font-size: 11px; color: #777; display: block; }
 
-.loss-title { color: #ff4d4d; font-weight: 700; }
-.maint-title { color: var(--spotter-green); font-weight: 700; }
-.gain-title { color: #4da3ff; font-weight: 700; }
+.loss-title { color: orange; font-weight: 700; }
+.maint-title { color: #4da3ff; font-weight: 700; }
+.gain-title { color: yellowgreen; font-weight: 700; }
 
 hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 
@@ -4579,15 +4579,15 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 
 .metric-input, .wide {
     background: #1a1a1a !important;
-    border: 1px solid #333 !important;
-    color: #fff !important;
+    border: 1px solid #fff !important;
+    color: #ffffff !important;
     border-radius: 0 !important;
     height: 50px !important;
     transition: 0.3s;
 }
 
 .metric-input:focus {
-    border-color: #ff1313 !important;
+    border-color: #fff !important;
     box-shadow: 0 0 10px rgba(255, 19, 19, 0.2) !important;
 }
 
@@ -4618,12 +4618,9 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 }
 
 /* Hover State Action */
-.submit-trigger:hover .goal-card {
-    transform: translateY(-10px);
-    background: #222;
-    border-color: #ff1313;
-    box-shadow: 0 10px 30px rgba(255, 19, 19, 0.15);
-}
+
+
+
 
 .goal-card h4 {
     font-family: 'Oswald', sans-serif;
@@ -4647,9 +4644,9 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 }
 
 /* Specific Card Accents */
-.loss-title { color: #ff4d4d; }
-.maint-title { color: #ff1313; } /* Primary Rubbish Red */
-.gain-title { color: #4da3ff; }
+.loss-title { color: orange; }
+.maint-title { color: #4da3ff; } /* Primary Rubbish Red */
+.gain-title { color: yellowgreen; }
 
 
         /* Card Container */
@@ -5169,7 +5166,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
     transition: background 0.3s;
 }
 .list-group-item:hover {
-    background-color: #f1f4fa;
+    background-color: var(--rubbish-red);
 }
 
 
@@ -5198,7 +5195,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 .spotter-header {
     text-align: center;
     margin-bottom: 30px;
-    border-bottom: 2px solid var(--spotter-neon);
+    
     padding-bottom: 10px;
 }
 
@@ -5308,9 +5305,9 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
     border-color: #c3fb12;
 }
 /* Color Coding */
-.loss-title { color: #ff4d4d; }
-.maint-title { color: #c3fb12; }
-.gain-title { color: #4da3ff; }
+.loss-title { color: orange; }
+.maint-title { color: #4da3ff; }
+.gain-title { color: yellowgreen; }
 
 .calorie-amt {
     display: block;
@@ -5366,7 +5363,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 }
 
 .spotter-table th {
-    background: #222 !important;
+    /* background: #ffffff !important; */
     border-bottom: 3px solid #ff1313 !important;
     color: #ff1313 !important;
     font-family: 'Oswald', sans-serif;
@@ -5375,14 +5372,14 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 
 .plan-list .list-group-item {
     background: transparent !important;
-    color: #adadad !important;
+    color: var(--rubbish-red) !important;
     border-bottom: 1px solid #222 !important;
     font-size: 0.95rem;
     transition: 0.3s;
 }
 
 .plan-list .list-group-item:hover {
-    background: rgba(255, 19, 19, 0.05) !important;
+    background: var(--rubbish-red) !important;
     color: #fff !important;
 }
 
@@ -5741,7 +5738,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
     transition: background 0.3s;
 }
 .list-group-item:hover {
-    background-color: #f1f4fa;
+    background-color: var(--rubbish-red);
 }
 
 :root {
@@ -5767,7 +5764,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 .spotter-header {
     text-align: center;
     margin-bottom: 30px;
-    border-bottom: 2px solid var(--spotter-neon);
+    
     padding-bottom: 10px;
 }
 
@@ -5877,9 +5874,9 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
     border-color: #c3fb12;
 }
 /* Color Coding */
-.loss-title { color: #ff4d4d; }
-.maint-title { color: #c3fb12; }
-.gain-title { color: #4da3ff; }
+.loss-title { color: orange; }
+.maint-title { color: #4da3ff; }
+.gain-title { color: yellowgreen; }
 
 .calorie-amt {
     display: block;
@@ -5936,7 +5933,7 @@ body { background-color: var(--dark-bg); color: #fff; }
 
 .metric-input {
   background: #222 !important;
-  border: 1px solid #444 !important;
+  border: 1px solid #fff !important;
   color: #fff !important;
   height: 50px;
   border-radius: 5px;
@@ -5971,7 +5968,7 @@ body { background-color: var(--dark-bg); color: #fff; }
   transition: 0.3s;
 }
 
-.submit-trigger:hover .goal-card { border-color: var(--spotter-green); }
+
 
 .calorie-amt { 
   font-size: 32px; 
@@ -5983,9 +5980,9 @@ body { background-color: var(--dark-bg); color: #fff; }
 
 .small-desc { font-size: 11px; color: #777; display: block; }
 
-.loss-title { color: #ff4d4d; font-weight: 700; }
-.maint-title { color: var(--spotter-green); font-weight: 700; }
-.gain-title { color: #4da3ff; font-weight: 700; }
+.loss-title { color: orange; font-weight: 700; }
+.maint-title { color: #4da3ff; font-weight: 700; }
+.gain-title { color: yellowgreen; font-weight: 700; }
 
 hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 
@@ -6012,15 +6009,15 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 
 .metric-input, .wide {
   background: #1a1a1a !important;
-  border: 1px solid #333 !important;
-  color: #fff !important;
+  border: 1px solid #fff !important;
+  color: #FF3E3E !important;
   border-radius: 0 !important;
   height: 50px !important;
   transition: 0.3s;
 }
 
 .metric-input:focus {
-  border-color: #ff1313 !important;
+  border-color: #fff !important;
   box-shadow: 0 0 10px rgba(255, 19, 19, 0.2) !important;
 }
 
@@ -6042,6 +6039,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 
 .goal-card {
   background: #1a1a1a;
+  border-color: #000408;
   padding: 30px;
   border: 1px solid #333;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -6054,7 +6052,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 .submit-trigger:hover .goal-card {
   transform: translateY(-10px);
   background: #222;
-  border-color: #ff1313;
+  
   box-shadow: 0 10px 30px rgba(255, 19, 19, 0.15);
 }
 
@@ -6080,9 +6078,9 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 }
 
 /* Specific Card Accents */
-.loss-title { color: #ff4d4d; }
-.maint-title { color: #ff1313; } /* Primary Rubbish Red */
-.gain-title { color: #4da3ff; }
+.loss-title { color: orange; }
+.maint-title { color: #4da3ff; } /* Primary Rubbish Red */
+.gain-title { color: yellowgreen; }
 
 
 /* line 5, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_footer.scss */
@@ -6727,7 +6725,27 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
   transition: background 0.3s;
 }
 .list-group-item:hover {
-  background-color: #f1f4fa;
+  background-color: var(--rubbish-red);
+}
+
+.first-row :hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.first-row {
+  
+  font-weight: bold;
+}
+
+.first-row-diet :hover{
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.first-row-diet {
+    
+  font-weight: bold;
 }
 
 :root {
@@ -6737,7 +6755,6 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
   --spotter-gray: #a0a0a0;
   --spotter-dark: #1a1a1a;
   --rubbish-red: #B22222;
-  
 }
 .spotter-container {
   background-color: var(--spotter-dark);
@@ -6753,7 +6770,7 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
 .spotter-header {
   text-align: center;
   margin-bottom: 30px;
-  border-bottom: 2px solid var(--spotter-neon);
+  
   padding-bottom: 10px;
 }
 
@@ -6863,9 +6880,9 @@ hr.divider { border-top: 1px solid #333; margin: 40px 0; }
   border-color: #c3fb12;
 }
 /* Color Coding */
-.loss-title { color: #ff4d4d; }
-.maint-title { color: #c3fb12; }
-.gain-title { color: #4da3ff; }
+.loss-title { color: orange; }
+.maint-title { color: #4da3ff; }
+.gain-title { color: yellowgreen; }
 
 .calorie-amt {
   display: block;

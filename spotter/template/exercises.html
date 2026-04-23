@@ -16,7 +16,7 @@
     
     
     
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
 
     <!-- CSS here -->
@@ -134,7 +134,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 text-center wow fadeInRight" data-wow-duration="2s" data-wow-delay=".2s">
-                        <button value="all" name="muscle_group" class="filter-btn active">All</button>
+                        <button value="all" name="muscle_group" class="filter-btn {% if active_filter == 'all' %}active{% endif %}">All</button>
                         <button value="Chest" name="muscle_group" class="filter-btn {% if active_filter == 'Chest' %}active{% endif %}">Chest</button>
                         <button value="Back" name="muscle_group" class="filter-btn {% if active_filter == 'Back' %}active{% endif %}">Back</button>
                         <button value="Shoulders" name="muscle_group" class="filter-btn {% if active_filter == 'Shoulders' %}active{% endif %}">Shoulders</button>

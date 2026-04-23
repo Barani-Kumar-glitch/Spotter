@@ -19,6 +19,7 @@
     
 
     <!-- CSS here -->
+    
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
@@ -133,11 +134,11 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 text-center wow fadeInRight" data-wow-duration="2s" data-wow-delay=".2s">
-                        <button value="all" name="food_category" class="filter-btn active">All</button>
+                        <button value="all" name="food_category" class="filter-btn {% if food_category == 'all' %}active{% endif %}">All</button>
                         <button value="Veg" name="food_category" class="filter-btn {% if food_category == 'Veg' %}active{% endif %}">Veg</button>
                         <button value="Non-Veg" name="food_category" class="filter-btn {% if food_category == 'Non-Veg' %}active{% endif %}">Non-Veg</button>
-                        <button value="Dairy" name="food_category" class="filter-btn {% if food_category == 'Diary' %}active{% endif %}">Diary</button>
-                        <button value="Nuts & Seeds" name="food_category" class="filter-btn {% if food_category == 'Nuts_Seeds' %}active{% endif %}">Nuts & Seeds</button>
+                        <button value="Dairy" name="food_category" class="filter-btn {% if food_category == 'Dairy' %}active{% endif %}">Diary</button>
+                        <button value="Nuts & Seeds" name="food_category" class="filter-btn {% if food_category == 'Nuts & Seeds' %}active{% endif %}">Nuts & Seeds</button>
                         <button value="Fruits" name="food_category" class="filter-btn {% if food_category == 'Fruits' %}active{% endif %}">Fruits</button>
 
                     </div>
