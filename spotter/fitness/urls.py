@@ -27,4 +27,6 @@ urlpatterns = [
     path('calorie_results',views.calorie_results,name="calorie_results"),
     path('post/<int:pk>/',views.post,name="post"),
     path('target/<int:pk>/',views.target,name="target"),
+    path('chat/', views.chat, name='chat'),
+    path('api/chat/', views.chat_api, name='chat_api'),
 ]

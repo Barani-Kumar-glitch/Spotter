@@ -8,6 +8,12 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from datetime import datetime
 import ast
+import json
+from django.conf import settings
+from django.http import JsonResponse
+from google import genai
+from openai import OpenAI
+from google.genai import types
 from .models import Post
 from .models import BodybuildingPlan
 from .models import MuscleGainPlan
@@ -26,6 +32,12 @@ from .models import User_Plan
 from .models import Course
 from .models import Contact
 
+
+# API Key Config
+client = OpenAI(
+    api_key=settings.GROQ_API_KEY,
+    base_url="https://api.groq.com/openai/v1",
+)
 
 # Create your views here.
 def index(request):
@@ -591,3 +603,34 @@ def target(request,pk):
     return render (request,'target.html',{
         'target':target,
     })
+    
+  
+
+def chat(request):
+    return render(request, 'chat.html')
+
+@csrf_exempt
+def chat_api(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user_message = data.get('message', '')
+            history = data.get('history', [])
+
+            messages = [{"role": "system", "content": "You are a helpful Fitness and Health assistant.Use all the Fitness and Health Sites for more Accuracy of Data."}]
+            messages += history
+            messages += [{"role": "user", "content": user_message}]
+
+            response = client.chat.completions.create(
+                model=settings.GROQ_MODEL,
+                max_tokens=1024,
+                messages=messages
+            )
+
+            reply = response.choices[0].message.content
+            return JsonResponse({'reply': reply})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Only POST allowed'}, status=405)

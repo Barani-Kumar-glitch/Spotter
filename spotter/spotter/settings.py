@@ -12,10 +12,21 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 from dotenv import load_dotenv
+
+
+env = environ.Env()
+environ.Env.read_env()
 
 # This searches for a file named .env in your root directory
 load_dotenv()
+
+# GEMINI_API_KEY = env('GEMINI_API_KEY') 
+
+
+GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
+GROQ_MODEL = "llama-3.3-70b-versatile"  # best free model 
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
