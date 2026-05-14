@@ -12,13 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import environ
 import dj_database_url
 from dotenv import load_dotenv
 
 
-env = environ.Env()
-environ.Env.read_env()
 
 # This searches for a file named .env in your root directory
 load_dotenv()
@@ -110,8 +107,7 @@ AUTHENTICATION_BACKENDS = (
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@"
-                f"{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+        default=os.getenv('DATABASE_URL')
     )
 }
 
