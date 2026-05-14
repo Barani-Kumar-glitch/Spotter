@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: django-app
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn spotter.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: False
