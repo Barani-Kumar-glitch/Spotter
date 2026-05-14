@@ -11,7 +11,6 @@ import ast
 import json
 from django.conf import settings
 from django.http import JsonResponse
-from google import genai
 from openai import OpenAI
 from google.genai import types
 from .models import Post
