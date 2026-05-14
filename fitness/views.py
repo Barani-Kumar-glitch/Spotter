@@ -12,7 +12,7 @@ import json
 from django.conf import settings
 from django.http import JsonResponse
 from openai import OpenAI
-from google.genai import types
+
 from .models import Post
 from .models import BodybuildingPlan
 from .models import MuscleGainPlan
