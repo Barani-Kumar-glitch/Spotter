@@ -6,3 +6,5 @@ dj-database-url
 python-dotenv
 Pillow
 openai
+cloudinary==1.44.2
+django-cloudinary-storage==0.3.0
