@@ -48,11 +48,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv(
-    "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,spotter-eemr.onrender.com"
-).split(",")
+# ALLOWED_HOSTS = os.getenv(
+#     "ALLOWED_HOSTS",
+#     "127.0.0.1,localhost,spotter-eemr.onrender.com"
+# ).split(",")
 
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
