@@ -39,15 +39,34 @@ client = OpenAI(
 )
 
 # Create your views here.
+# def index(request):
+#     guide=Course.objects.all()
+#     all_blogs = Post.objects.all().order_by('-posted_at')
+#     if all_blogs:
+#         img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
+#     return render(request,'index.html',{
+#         'guide':guide,
+#         'img_blogs': img_blogs,
+#         })
+
 def index(request):
-    guide=Course.objects.all()
+    guide = Course.objects.all()
     all_blogs = Post.objects.all().order_by('-posted_at')
+    
+    # 1. Initialize with an empty fallback queryset
+    img_blogs = Post.objects.none() 
+    
     if all_blogs:
         img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
-    return render(request,'index.html',{
-        'guide':guide,
+        
+    return render(request, 'index.html', {
+        'guide': guide,
         'img_blogs': img_blogs,
-        })
+    })
+
+
+
+
 
 @csrf_exempt
 def signup(request):
