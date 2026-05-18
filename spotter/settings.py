@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+import cloudinary
 
 
 
@@ -23,8 +24,14 @@ load_dotenv()
 # GEMINI_API_KEY = env('GEMINI_API_KEY') 
 
 
-GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 GROQ_MODEL = "llama-3.3-70b-versatile"  # best free model 
+
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+)
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -114,7 +121,8 @@ AUTHENTICATION_BACKENDS = (
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
+        default=os.getenv('DATABASE_URL'),
+        ssl_require=True
     )
 }
 
@@ -163,7 +171,7 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static'),]
 MEDIA_URL = '/media/'
 
 # The actual folder on your computer where videos are saved
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
