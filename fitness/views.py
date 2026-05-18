@@ -139,74 +139,131 @@ def about(request):
         })
         
 
-def blog_details(request,):
+# def blog_details(request,):
     
+#     if request.user.is_authenticated:
+#         if request.method == 'POST':
+#             comment = request.POST.get('comment')
+#             #Blogs.objects.create(comment=comment)
+#             name = request.POST.get('name')
+#             #Blogs.objects.create(name=name)
+#             image = request.FILES.get('image')
+#             title = request.POST.get('title')
+
+#             if name and comment and title:
+#                 if image:
+#                     Post.objects.create(name=name, comment=comment, title=title, image=image)
+#                 else :
+#                     Post.objects.create(name=name, comment=comment, title=title)
+#                 return redirect('blog_details')
+            
+#             else:
+#                 messages.error(request, "Title, Name and Blog are need to be Required.")
+#                 return redirect('blog_details')
+#         img_blogs = Post.objects.all().order_by('-posted_at')
+#         #img_blogs = Post.objects.filter(image__icontains='.').order_by('-posted_at')
+#         paginator = Paginator(img_blogs, 6) 
+            
+#          # 3. Get the current page number from the URL (e.g., ?page=2)
+#         page_number = request.GET.get('page')
+            
+#         # 4. Extract the specific 5 blogs for that page
+#         page_obj = paginator.get_page(page_number) 
+#         return render(request, 'blog_details.html',
+#                       {
+#                           'all_blogs':img_blogs,
+#                           'img_blogs':page_obj, 
+#                       }
+#                       )
+      
+#     else:
+#         messages.info(request,"!Please Log In")
+#         return redirect('/')
+    
+    
+
+# def blog(request):
+#     if request.user.is_authenticated:
+#         all_blogs = Post.objects.all().order_by('-posted_at')
+#         if all_blogs:
+#             img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
+#             #img_blogs = Post.objects.filter(image__icontains='.').order_by('-posted_at')
+#             paginator = Paginator(img_blogs, 5) 
+            
+#             # 3. Get the current page number from the URL (e.g., ?page=2)
+#             page_number = request.GET.get('page')
+            
+#             # 4. Extract the specific 5 blogs for that page
+#             page_obj = paginator.get_page(page_number)
+
+#         return render(request,'blog.html',
+#                       {
+#                           'all_blogs' :all_blogs,
+                         
+#                           'img_blogs': page_obj,  
+#                       }
+#                       )
+#     else:
+#         messages.info(request,"!Please Log In")
+#         return redirect('/')
+ 
+ 
+# updated blog by hari    
+def blog_details(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             comment = request.POST.get('comment')
-            #Blogs.objects.create(comment=comment)
             name = request.POST.get('name')
-            #Blogs.objects.create(name=name)
             image = request.FILES.get('image')
             title = request.POST.get('title')
 
             if name and comment and title:
                 if image:
                     Post.objects.create(name=name, comment=comment, title=title, image=image)
-                else :
+                else:
                     Post.objects.create(name=name, comment=comment, title=title)
                 return redirect('blog_details')
-            
             else:
-                messages.error(request, "Title, Name and Blog are need to be Required.")
+                messages.error(request, "Title, Name and Blog are required.")
                 return redirect('blog_details')
+                
         img_blogs = Post.objects.all().order_by('-posted_at')
-        #img_blogs = Post.objects.filter(image__icontains='.').order_by('-posted_at')
         paginator = Paginator(img_blogs, 6) 
-            
-         # 3. Get the current page number from the URL (e.g., ?page=2)
         page_number = request.GET.get('page')
-            
-        # 4. Extract the specific 5 blogs for that page
         page_obj = paginator.get_page(page_number) 
-        return render(request, 'blog_details.html',
-                      {
-                          'all_blogs':img_blogs,
-                          'img_blogs':page_obj, 
-                      }
-                      )
-      
+        
+        return render(request, 'blog_details.html', {
+            'all_blogs': img_blogs,
+            'img_blogs': page_obj, 
+        })
     else:
-        messages.info(request,"!Please Log In")
+        messages.info(request, "!Please Log In")
         return redirect('/')
-    
-    
+
 
 def blog(request):
     if request.user.is_authenticated:
         all_blogs = Post.objects.all().order_by('-posted_at')
+        
+        # 1. Provide safe fallbacks so the return statement never crashes
+        img_blogs = Post.objects.none()
+        page_obj = []
+        
         if all_blogs:
             img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
-            #img_blogs = Post.objects.filter(image__icontains='.').order_by('-posted_at')
             paginator = Paginator(img_blogs, 5) 
-            
-            # 3. Get the current page number from the URL (e.g., ?page=2)
             page_number = request.GET.get('page')
-            
-            # 4. Extract the specific 5 blogs for that page
             page_obj = paginator.get_page(page_number)
 
-        return render(request,'blog.html',
-                      {
-                          'all_blogs' :all_blogs,
-                         
-                          'img_blogs': page_obj,  
-                      }
-                      )
+        return render(request, 'blog.html', {
+            'all_blogs': all_blogs,
+            'img_blogs': page_obj,  
+        })
     else:
-        messages.info(request,"!Please Log In")
+        messages.info(request, "!Please Log In")
         return redirect('/')
-    
+
+
 
 def diets(request):
     if not request.user.is_authenticated:
