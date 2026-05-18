@@ -50,7 +50,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,spotter-1-ukhq.onrender.com"
+    "127.0.0.1,localhost,spotter-eemr.onrender.com"
 ).split(",")
 
 
