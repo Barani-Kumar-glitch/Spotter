@@ -42,7 +42,6 @@ client = OpenAI(
 def index(request):
     guide=Course.objects.all()
     all_blogs = Post.objects.all().order_by('-posted_at')
-    img_blogs = [ ]
     if all_blogs:
         img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
     return render(request,'index.html',{
