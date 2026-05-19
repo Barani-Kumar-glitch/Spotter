@@ -1,5 +1,5 @@
 # --- Django Security ---
-.env
+
 db.sqlite3
 
 # --- Python Files ---
@@ -12,10 +12,11 @@ venv/
 env/
 ENV/
 .venv/
+.env
 
 # --- 
 Media and Static ---
-media/
+# media/
 # Only ignore static if you don't want to upload your assets 
 # (Usually, for Spotter, we DO NOT ignore static/ but we DO ignore media/)
 
