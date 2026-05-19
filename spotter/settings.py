@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+from decouple import config
 import cloudinary
 
 
@@ -22,7 +23,6 @@ import cloudinary
 load_dotenv()
 
 # GEMINI_API_KEY = env('GEMINI_API_KEY') 
-
 
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 GROQ_MODEL = "llama-3.3-70b-versatile"  # best free model 
@@ -33,7 +33,10 @@ cloudinary.config(
     api_secret=os.getenv("CLOUDINARY_API_SECRET"),
 )
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
+
+SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = os.getenv('SECRET_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,7 +49,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+# DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = os.getenv(
     "ALLOWED_HOSTS",
@@ -138,7 +142,7 @@ if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
-            conn_max_age=600
+            conn_max_age=600,  # Enforce SSL for all connections, but we'll handle it conditionally below,
         )
     }
     
