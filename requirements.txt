@@ -4,6 +4,7 @@ whitenoise
 psycopg2-binary
 dj-database-url
 python-dotenv
+python-decouple
 Pillow
 openai
 cloudinary==1.44.2

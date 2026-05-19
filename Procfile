@@ -1,1 +1,1 @@
-web: gunicorn spotter.wsgi:application
+web: gunicorn spotter.wsgi
