@@ -23,3 +23,7 @@ Media and Static ---
 # --- OS Specific ---
 .DS_Store
 Thumbs.db
+
+# Database files
+data.json
+datadump.json
