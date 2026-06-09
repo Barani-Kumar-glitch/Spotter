@@ -10,6 +10,10 @@ env/
 # Environment variables
 .env
 
+
+# vedio
+*.mp4
+
 # Django
 db.sqlite3
 media/
