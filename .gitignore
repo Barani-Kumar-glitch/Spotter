@@ -1,29 +1,65 @@
-# --- Django Security ---
+# Python
+__pycache__/
+*.pyc
 
-db.sqlite3
-
-# --- Python Files ---
-**/__pycache__/
-*.py[cod]
-*$py.class
-
-# --- Virtual Environments ---
+# Virtual Environment
 venv/
-env/
-ENV/
 .venv/
+env/
+
+# Environment variables
 .env
 
-# --- 
-Media and Static ---
-# media/
-# Only ignore static if you don't want to upload your assets 
-# (Usually, for Spotter, we DO NOT ignore static/ but we DO ignore media/)
+# Django
+db.sqlite3
+media/
+staticfiles/
 
-# --- OS Specific ---
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# OS
 .DS_Store
 Thumbs.db
 
 # Database files
 data.json
 datadump.json
+
+
+
+# # --- Django Security ---
+
+# db.sqlite3
+
+# # --- Python Files ---
+# **/__pycache__/
+# *.py[cod]
+# *$py.class
+
+# # --- Virtual Environments ---
+# venv/
+# ENV/
+# env/
+# .venv/
+# .env
+
+# # --- 
+# Media and Static ---
+# # media/
+# # Only ignore static if you don't want to upload your assets 
+# # (Usually, for Spotter, we DO NOT ignore static/ but we DO ignore media/)
+
+# # --- OS Specific ---
+# .DS_Store
+# Thumbs.db
+
+# # Database files
+# data.json
+# datadump.json
