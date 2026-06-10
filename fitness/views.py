@@ -60,12 +60,11 @@ def index(request):
     if all_blogs:
         img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
       
-    return HttpResponse("SPOTTER IS WORKING")
-  
-    # return render(request, 'index.html', {
-    #     'guide': guide,
-    #     'img_blogs': img_blogs,
-    # })
+
+    return render(request, 'index.html', {
+        'guide': guide,
+        'img_blogs': img_blogs,
+    })
 
 
 
