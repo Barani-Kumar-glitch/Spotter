@@ -49,8 +49,6 @@ client = OpenAI(
 #         'img_blogs': img_blogs,
 #         })
 
-def test(request):
-    return HttpResponse("SPOTTER IS WORKING")
 
 def index(request):
     guide = Course.objects.all()
@@ -61,11 +59,13 @@ def index(request):
     
     if all_blogs:
         img_blogs = Post.objects.exclude(image__isnull=True).exclude(image__exact='').order_by('-posted_at')
-        
-    return render(request, 'index.html', {
-        'guide': guide,
-        'img_blogs': img_blogs,
-    })
+      
+    return HttpResponse("SPOTTER IS WORKING")
+  
+    # return render(request, 'index.html', {
+    #     'guide': guide,
+    #     'img_blogs': img_blogs,
+    # })
 
 
 
