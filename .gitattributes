@@ -1,0 +1,7 @@
+# Ensure shell scripts always have LF line endings on all platforms
+build.sh text eol=lf
+Procfile text eol=lf
+*.py text eol=lf
+
+# All other text files use default (crlf on Windows checkout, lf on commit)
+* text=auto

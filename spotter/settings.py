@@ -48,21 +48,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = os.getenv('DEBUG', 'False') == 'True'
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-SECURE_PROXY_SSL_HEADER = (
-    ('HTTP_X_FORWARDED_PROTO', 'https')
-)
+# Fix: SECURE_PROXY_SSL_HEADER must be a 2-tuple (not a tuple containing a tuple)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "True") == "True"
-CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE", "True") == "True"
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+# ALLOWED_HOSTS: reads from env var, always includes localhost and .onrender.com
+_allowed_hosts_env = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
+ALLOWED_HOSTS = [h.strip() for h in _allowed_hosts_env.split(',') if h.strip()]
 
-# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","127.0.0.1,localhost,spotter-eemr.onrender.com").split(",")
-
-# ALLOWED_HOSTS = ['*']
+# Always allow the Render internal hostname
+if not DEBUG:
+    ALLOWED_HOSTS += ['.onrender.com']
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if RENDER_EXTERNAL_HOSTNAME:
+        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
