@@ -49,6 +49,9 @@ client = OpenAI(
 #         'img_blogs': img_blogs,
 #         })
 
+def test(request):
+    return HttpResponse("SPOTTER IS WORKING")
+
 def index(request):
     guide = Course.objects.all()
     all_blogs = Post.objects.all().order_by('-posted_at')
@@ -63,8 +66,6 @@ def index(request):
         'guide': guide,
         'img_blogs': img_blogs,
     })
-
-
 
 
 
@@ -206,6 +207,7 @@ def about(request):
 #     else:
 #         messages.info(request,"!Please Log In")
 #         return redirect('/')
+ 
  
  
 # updated blog by hari    
