@@ -2,7 +2,6 @@ from django.urls import path
 from fitness import views
 
 urlpatterns = [
-    path('test/', views.test, name='test'),
     path('',views.index,name="index"),
     path('signout',views.signout,name="signout"),
     path('signup',views.signup,name="signup"),
