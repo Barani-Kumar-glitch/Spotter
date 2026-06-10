@@ -1,68 +1,60 @@
 # Python
-__pycache__/
-*.pyc
+
+**pycache**/
+*.py[cod]
+*$py.class
 
 # Virtual Environment
+
 venv/
 .venv/
 env/
+ENV/
 
-# Environment variables
+# Environment Variables
+
 .env
 
-# vedio
-*.mp4
-
 # Django
+
 db.sqlite3
 media/
 staticfiles/
 
-# VS Code
-.vscode/
-
 # Logs
+
 *.log
 
-# Node
+# VS Code
+
+.vscode/
+
+# Node.js
+
 node_modules/
 
-# OS
+# macOS
+
 .DS_Store
+
+# Windows
+
 Thumbs.db
 
-# Database files
+# Database Dumps
+
 data.json
 datadump.json
 
+# Coverage
 
+.coverage
+htmlcov/
 
-# # --- Django Security ---
+# Pytest
 
-# db.sqlite3
+.pytest_cache/
 
-# # --- Python Files ---
-# **/__pycache__/
-# *.py[cod]
-# *$py.class
+# Mypy
 
-# # --- Virtual Environments ---
-# venv/
-# ENV/
-# env/
-# .venv/
-# .env
-
-# # --- 
-# Media and Static ---
-# # media/
-# # Only ignore static if you don't want to upload your assets 
-# # (Usually, for Spotter, we DO NOT ignore static/ but we DO ignore media/)
-
-# # --- OS Specific ---
-# .DS_Store
-# Thumbs.db
-
-# # Database files
-# data.json
-# datadump.json
+.mypy_cache/
