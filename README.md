@@ -31,3 +31,4 @@ The Calculation Engine: Uses standardized fitness formulas (like Mifflin-St Jeor
 Relational Data Mapping: A PostgreSQL schema that connects exercises to specific muscle groups and user-specific workout logs.
 
 Frontend Styling: Custom CSS variables define the signature "dark mode" theme, ensuring a consistent brand identity across all modules.
+# Spotter
