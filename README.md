@@ -1,4 +1,4 @@
-Spotter: Your Ultimate AI-Driven Fitness Companion
+# Spotter: Your Ultimate AI-Driven Fitness Companion
 Spotter is a comprehensive full-stack fitness application designed to simplify health tracking and workout management. Built with a focus on precision and user experience, it serves as a digital personal trainer that helps users monitor their nutritional intake, manage weight goals, and access structured workout guidance.
 
 ## Core Features
