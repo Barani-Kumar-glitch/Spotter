@@ -17,8 +17,6 @@ from dotenv import load_dotenv
 from decouple import config
 import cloudinary
 
-
-
 # This searches for a file named .env in your root directory
 load_dotenv()
 
@@ -92,7 +90,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    
 ]
 
 ROOT_URLCONF = "spotter.urls"
@@ -104,7 +101,6 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
-                
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
