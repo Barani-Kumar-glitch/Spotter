@@ -66,21 +66,21 @@ class MuscleGainPlan(FitnessPlanBase):
         return f"{self.gender} - {self.weight_range_kg} ({self.experience})"
     class Meta:
         db_table = 'muscle_gain_plan'  # Maps exactly to your SQL table name
-        managed = True
+        managed = False
 
 class WeightLossPlan(FitnessPlanBase):
     def __str__(self):
         return f"{self.gender} - {self.weight_range_kg} ({self.experience})"
     class Meta:
         db_table = 'weight_loss_plan'
-        managed = True
+        managed = False
 
 class BodybuildingPlan(FitnessPlanBase):
     def __str__(self):
         return f"{self.gender} - {self.weight_range_kg} ({self.experience})"
     class Meta:
         db_table = 'bodybuilding_plan'
-        managed = True
+        managed = False
 
 # Exercise and Diet
 
