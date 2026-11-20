@@ -13,23 +13,23 @@ from django.conf import settings
 from django.http import JsonResponse
 from openai import OpenAI
 
-from .models import Post
-from .models import BodybuildingPlan
-from .models import MuscleGainPlan
-from .models import WeightLossPlan
-from .models import ExerciseVideo
-from .models import Exercise
-from .models import Diet
-from .models import WeightLifting
-from .models import PowerLifting
-from .models import BodyBuilding
-from .models import StrongMan
-from .models import TrackField
-from .models import Gymnastics
-from .models import UserData
-from .models import User_Plan
-from .models import Course
-from .models import Contact
+from .models import *
+# from .models import BodybuildingPlan
+# from .models import MuscleGainPlan
+# from .models import WeightLossPlan
+# from .models import ExerciseVideo
+# from .models import Exercise
+# from .models import Diet
+# from .models import WeightLifting
+# from .models import PowerLifting
+# from .models import BodyBuilding
+# from .models import StrongMan
+# from .models import TrackField
+# from .models import Gymnastics
+# from .models import UserData
+# from .models import User_Plan
+# from .models import Course
+# from .models import Contact
 
 
 # API Key Config
